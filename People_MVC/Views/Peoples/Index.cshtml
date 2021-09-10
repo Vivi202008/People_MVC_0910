@@ -1,0 +1,40 @@
+﻿@model People_MVC.Models.ViewModel.PeopleViewModel;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Welcome to People's table</h1>
+
+
+
+<form asp-action="Index" method="post">
+    <label asp-for="Search">Please input something to search</label>
+    <input asp-for="Search" />
+    <input type="submit" value="Search">
+
+</form>
+
+<form>
+    <label><a asp-action="Create">Create a new person's record!</a> </label>
+</form>
+
+
+
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">City</th>
+            <th scope="col">Name</th>
+            <th scope="col">Telephone Number</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+</table>
+@foreach (var item in Model.PeopleList)
+{
+    @*@await Html.PartialAsync("_ShowAll", item);*@
+    <partial name="_People.cshtml" model="item" />
+  }
