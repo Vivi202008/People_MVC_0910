@@ -10,13 +10,18 @@ namespace People_MVC.Models.Service
     public class PeopleService : IPeopleService
     {
         IPeopleRepo _peopleRepo;
+        InMemoryPeopleRepo PeopleData = new InMemoryPeopleRepo();
         public static List<Person> _peopleList = new List<Person>();
 
-        public object DataEx { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        
 
         public PeopleService(IPeopleRepo peopleRepo)
         {
             _peopleRepo = peopleRepo;
+        }
+
+        public PeopleService()
+        {
         }
 
         public Person Add(CreatePersonViewModel person)
@@ -39,23 +44,11 @@ namespace People_MVC.Models.Service
         public PeopleViewModel All()
         {
             PeopleViewModel indexViewModel = new PeopleViewModel();
-            indexViewModel.PeopleList = _peopleRepo.Read();
+            indexViewModel.PeopleList = PeopleData.Read();
             return indexViewModel;
         }
 
-        public Person Edit(int id, Person person)
-        {
-            if (person != null)
-            {
-                return _peopleRepo.Update(person);
-            }
-            else
-            {
-                return person;
-            }
-        }
-
-        public Person FindBy(int id)
+         public Person FindBy(int id)
         {
             return _peopleRepo.Read(id);
         }

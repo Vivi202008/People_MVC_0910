@@ -11,6 +11,7 @@ namespace People_MVC.Controllers
     {
         private readonly IPeopleService _peopleService;
         private readonly IPeopleRepo _peopleRepo;
+        PeopleService peopleService = new PeopleService();
 
         public AjaxController(IPeopleService peopleService, IPeopleRepo peopleRepo)
         {
@@ -21,7 +22,7 @@ namespace People_MVC.Controllers
         [HttpGet]
         public IActionResult ShowAll()
         {
-           return PartialView("_ShowAll", _peopleService.All());  
+            return PartialView("_ShowAll", _peopleService.All());
         }
 
         [HttpGet]
@@ -33,26 +34,37 @@ namespace People_MVC.Controllers
             };
             if (string.IsNullOrEmpty(peopleSearch.Search))
             {
-                return PartialView("_Show", _peopleService.All());
+                return PartialView("_Show", peopleService.All());
             }
-            return PartialView("_Show", _peopleService.FindBy(peopleSearch));
+            return PartialView(
+                "_Show", peopleService.FindBy(peopleSearch));
         }
         //Get
         public IActionResult Management()
         {
             return View();
         }
-
+        [HttpPost]
         public IActionResult PersonDetails(int ID)
         {      
             return PartialView("_PersonDetails",_peopleRepo.Read(ID));
         }
-
+        [HttpPost]
         public IActionResult Delete(int ID)
-        {
+        {            
             Person deletePerson = _peopleRepo.Read(ID);
-            return PartialView("_PersonDetails", _peopleRepo.Delete(deletePerson));
+            if (deletePerson!=null)
+            {
+                ViewBag.Message = $"Person with id {ID} has been deleted";
+                return PartialView("_Delete", _peopleRepo.Delete(deletePerson));
+            }
+            else
+            {
+                ViewBag.Message = $"person with id {ID} is not exist.";
+                return PartialView("_Delete", _peopleRepo.Delete(deletePerson));
+            }
+            //Person deletePerson = _peopleRepo.Read(ID);
+            //return PartialView("_Delete", _peopleRepo.Delete(deletePerson));
         }
-
     }
 }

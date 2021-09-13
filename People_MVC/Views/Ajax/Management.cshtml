@@ -12,32 +12,31 @@
 
     <input type="button"  asp-controller="Ajax" asp-action="PersonDetails" data-target="dvShow" value="Display" class="btn btn-secondary" id="btnDisplay" />
     <input type="button" asp-controller="Ajax" asp-action="Delete" data-target="dvShow" value="Delete"  class="btn btn-success" id="btnDelete" />
-    <input type="button" asp-controller="Ajax" asp-action="Show" data-target="dvShow" value="DisplayAll" id="btnDisplayAll" class="btn btn-secondary" />
+    <input type="button" asp-controller="Ajax" asp-action="ShowAll" data-target="dvShow" value="DisplayAll" id="btnDisplayAll" class="btn btn-secondary" />
 </form>
 
 <div class="row">
     <div class="col-md-8 col-lg-offset-3">
         <h2>People's record</h2>
-        <table id="table" class="table-striped">
+        @*<table id="table" class="table-striped">
             <tr>
                 <th>ID</th>
                 <th>Name</th>
                 <th>City</th>
                 <th>TelephoneNumber</th>
             </tr>
-        </table>
+        </table>*@
     </div>
 
 </div>
 <div id="dvShow">
-    <h1>First Partial View</h1>
-
+    <h1>Result</h1>
 </div>
 
 <style>
     #table tr th {
         color: white;
-        width: 300px;
+        width: 500px;
         height: 40px;
         text-decoration: solid;
         background-color: yellowgreen;
@@ -62,8 +61,8 @@
         $('#dvShow').text("Delete By ID");
 
           var id = $("#searchID").val();
-          $('#dvShow').load("/Ajax/Delete", { ID: id });
-            alert("@ViewBag.Message")
+        $('#dvShow').load("/Ajax/Delete", { ID: id });
+        alert(id+" has deleted.");
     });
     $("#btnDisplayAll").click(function (e) {
         e.preventDefault();
@@ -71,5 +70,4 @@
         $('#dvShow').text("Display All!");
         $('#dvShow').load("/Ajax/Show");
     });
-
 </script>

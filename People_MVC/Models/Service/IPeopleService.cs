@@ -14,8 +14,8 @@ namespace People_MVC.Models.Service
         PeopleViewModel FindBy(PeopleViewModel search);
              
         Person FindBy(int id);
-        Person Edit(int id, Person person);
         bool Remove(int id);
     
+        //Person Edit(int id, Person person);
     }
 }

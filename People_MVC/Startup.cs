@@ -1,16 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using People_MVC.Models.Service;
 using People_MVC.Models.Repo;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using People_MVC.Models;
 
 namespace People_MVC
 {
@@ -27,9 +21,12 @@ namespace People_MVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddScoped<IPeopleService, PeopleService>();
-            services.AddScoped<IPeopleRepo,InMemoryPeopleRepo>();
+            //services.AddScoped<IPeopleService, PeopleService>();
+            //services.AddScoped<IPeopleRepo,InMemoryPeopleRepo>();
             
+            services.AddSingleton<IPeopleService, PeopleService>();
+            services.AddSingleton<IPeopleRepo, InMemoryPeopleRepo>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

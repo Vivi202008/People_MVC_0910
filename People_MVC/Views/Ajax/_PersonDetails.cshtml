@@ -1,0 +1,12 @@
+﻿@model People_MVC.Models.Person
+
+<h3>Person Details</h3>
+@Html.DisplayNameFor(m => Model.ID):@Html.DisplayFor(m => Model.ID)
+<br />
+@Html.DisplayNameFor(m => Model.Name):@Html.DisplayFor(m => Model.Name)
+<br />
+@Html.DisplayNameFor(m => Model.City):@Html.DisplayFor(m => Model.City)
+<br />
+@Html.DisplayNameFor(m => Model.TeleNumber):@Html.DisplayFor(m => Model.TeleNumber)
+<br />
+<p>Updated at @DateTime.Now</p>

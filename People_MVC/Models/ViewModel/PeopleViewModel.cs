@@ -13,5 +13,9 @@ namespace People_MVC.Models.ViewModel
 
         public List<Person> PeopleList { get; set; }
 
+        public CreatePersonViewModel Person { get; set; }
+
+        public List<Person> peoplelist = new List<Person>();
+
     }
 }
