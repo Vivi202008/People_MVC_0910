@@ -1,4 +1,5 @@
-﻿using System;
+﻿using People_MVC.Views;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,6 +9,7 @@ namespace People_MVC.Models
 {
     public class Person
     {
+        [Key]
         public int ID { get; set; }
 
         [Required]
@@ -23,5 +25,8 @@ namespace People_MVC.Models
         [RegularExpression(@"[0-9]*$", ErrorMessage = "Please input only numbers. ")]
         [StringLength(20, MinimumLength = 8)]
         public string TeleNumber { get; set; }
+
+        public List<PersonInsurance> PersonInsurances { get; set; }
     }
 }
+

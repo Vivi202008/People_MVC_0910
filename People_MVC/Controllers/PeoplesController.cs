@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using People_MVC.Data;
 using People_MVC.Models;
 using People_MVC.Models.Repo;
 using People_MVC.Models.Service;
@@ -14,23 +15,29 @@ namespace People_MVC.Controllers
     {
         private readonly IPeopleService _peopleService;
         IPeopleRepo _peopleRepo;
+        PeopleDbContext _context;
 
 
-        public PeoplesController(IPeopleService peopleService, IPeopleRepo peopleRepo)
+        public PeoplesController(IPeopleService peopleService, IPeopleRepo peopleRepo, PeopleDbContext context)
         {
             _peopleService = peopleService;
             _peopleRepo = peopleRepo;
+            _context=context;
 
         }
 
         [HttpGet]
         public IActionResult Index()
         {
+            PeopleViewModel vm = new PeopleViewModel();
+            vm.PeopleList = _context.Persons.ToList();
+
             if (InMemoryPeopleRepo.allPeopleList.Count == 0)
             {
                 InMemoryPeopleRepo.CreateDefaultPeoples();
             }
-            return View(_peopleService.All());
+            //return View(_peopleService.All());
+            return View(vm);
         }
 
         public PartialViewResult ListOfPeople()
@@ -43,8 +50,6 @@ namespace People_MVC.Controllers
         {
             //    peopleViewModel.PeopleList = _peopleService.FindBy(peopleViewModel.Search);
             //    return View(peopleViewModel);
-
-            PeopleViewModel people = new PeopleViewModel();
 
             if (!string.IsNullOrEmpty(peopleViewModel.Search))
             {
