@@ -1,5 +1,4 @@
-﻿using People_MVC.Views;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,7 +9,7 @@ namespace People_MVC.Models.Repo
     {
         public PersonLanguage Create(Person person, Language language);
 
-        public PersonLanguage Read(int id); 
+        public PersonLanguage Read(int id);
         public List<PersonLanguage> Read();
 
         public List<PersonLanguage> Update(int[] languages, Person person);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace People_MVC.Models.Service
 {
-    interface ICityService
+    public interface ICityService
     {
         public City Add(CreateCityViewModel city);
 

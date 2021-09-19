@@ -18,10 +18,10 @@ namespace People_MVC.Models
         [StringLength(30, MinimumLength = 2)]
         public int[] Languages { get; set; }
 
-        [Required]
-        [StringLength(30, MinimumLength = 2)]
-        [RegularExpression(@"[A-zåäöÅÖÄ]*", ErrorMessage = "Use only alphabets!")]
-        public string Country { get; set; }
+        //[Required]
+        //[StringLength(30, MinimumLength = 2)]
+        //[RegularExpression(@"[A-zåäöÅÖÄ]*", ErrorMessage = "Use only alphabets!")]
+        //public string Country { get; set; }
 
         [Required(ErrorMessage = "Fill out name field!")]
         [StringLength(50,MinimumLength =2)]

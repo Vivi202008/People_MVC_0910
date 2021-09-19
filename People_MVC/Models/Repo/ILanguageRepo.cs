@@ -1,5 +1,4 @@
 ﻿using People_MVC.Models.ViewModel;
-using People_MVC.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +12,10 @@ namespace People_MVC.Models.Repo
 
         public Language Read(int id);
         public List<Language> Read(PersonLanguage personLanguage);
-        public Language FindBy(string search);   
-      
+        public Language FindBy(string search);
+
         public bool Delete(Language language);
         public Language Update(Language language);
-               
+        List<Language> Read();
     }
 }

@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 using People_MVC.Models.Service;
 using People_MVC.Models.Repo;
 using People_MVC.Data;
+using People_MVC.Models;
 
 
 namespace People_MVC

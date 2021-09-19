@@ -61,7 +61,7 @@ namespace People_MVC.Models.Service
         {
             search.PeopleList = _peopleRepo.Read().FindAll(
                 person => person.Name.Contains(search.Search,StringComparison.OrdinalIgnoreCase)
-                       || person.City.Contains(search.Search, StringComparison.OrdinalIgnoreCase)
+                       || person.City.Name.Contains(search.Search, StringComparison.OrdinalIgnoreCase)
                        || person.TeleNumber.Contains(search.Search)
             );
 

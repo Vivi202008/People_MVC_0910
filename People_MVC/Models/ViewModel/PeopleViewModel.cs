@@ -1,4 +1,4 @@
-﻿using People_MVC.Views;
+﻿using People_MVC.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,10 +14,10 @@ namespace People_MVC.Models.ViewModel
 
         public List<Person> PeopleList { get; set; }
         public CreatePersonViewModel Person { get; set; }
-        public List<Person> peoplelist = new List<Person>();
+        public List<Person> people = new List<Person>();
 
         public List<City> Cities { get; set; } = new List<City>(); 
-        public List<Country> Countries { get; set; } = new List<Country>();
+       // public List<Country> Countries { get; set; } = new List<Country>();
         public List<Language> Languages { get; set; } = new List<Language>();
         public List<PersonLanguage> PersonLanguages { get; set; } = new List<PersonLanguage>();
     }

@@ -1,8 +1,5 @@
-﻿using People_MVC.Models.ViewModel;
-using People_MVC.Models.Repo;
-using People_MVC.Data;
-using People_MVC.Models.Service;
-using People_MVC.Views;
+﻿using People_MVC.Models.Repo;
+using People_MVC.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace People_MVC.Models.Service
 {
-    public class LanguageService : ILanguageService
+    public class LanguageService:ILanguageService
     {
         private readonly ILanguageRepo _languageRepo;
         public LanguageService(ILanguageRepo languageRepo)

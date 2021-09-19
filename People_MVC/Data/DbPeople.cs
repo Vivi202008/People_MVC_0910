@@ -4,7 +4,7 @@ using People_MVC.Models.Repo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using People_MVC.Views;
+
 
 namespace People_MVC.Data
 {
@@ -28,7 +28,7 @@ namespace People_MVC.Data
 
             Person newPerson = new Person();
             newPerson.Name = person.Name;
-            newPerson.City = selectedCity.Name;
+            newPerson.City = selectedCity;
             newPerson.TeleNumber = person.TeleNumber;
 
             _dbPeopleC.People.Add(newPerson);

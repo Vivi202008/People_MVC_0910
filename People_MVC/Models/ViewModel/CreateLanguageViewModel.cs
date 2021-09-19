@@ -1,9 +1,4 @@
-﻿using People_MVC.Views;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace People_MVC.Models.ViewModel
 {
@@ -15,7 +10,7 @@ namespace People_MVC.Models.ViewModel
         [RegularExpression(@"[A-zöåäÅÖÄ]*", ErrorMessage = "Use only alphabets.")]
         [StringLength(30, MinimumLength = 2)]
         public string Name { get; set; }
-        
+
         //public List<Language> Languages { get; set; }
     }
 }

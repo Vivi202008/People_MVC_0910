@@ -4,6 +4,7 @@ using People_MVC.Models;
 using People_MVC.Models.Repo;
 using People_MVC.Models.Service;
 using People_MVC.Models.ViewModel;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,13 +17,19 @@ namespace People_MVC.Controllers
         private readonly IPeopleService _peopleService;
         IPeopleRepo _peopleRepo;
         PeopleDbContext _context;
+        private readonly ICityService _cityService;
+        private readonly ILanguageService _languageService;
+        private readonly IPersonLanguageRepo _personLanguageRepo;
 
 
-        public PeoplesController(IPeopleService peopleService, IPeopleRepo peopleRepo, PeopleDbContext context)
+        public PeoplesController(IPeopleService peopleService, IPeopleRepo peopleRepo, PeopleDbContext context, ICityService cityService, ILanguageService languageService, IPersonLanguageRepo personLanguageRepo)
         {
             _peopleService = peopleService;
             _peopleRepo = peopleRepo;
-            _context=context;
+            _context = context;
+            _cityService = cityService;
+            _languageService = languageService;
+            _personLanguageRepo = personLanguageRepo;
 
         }
 

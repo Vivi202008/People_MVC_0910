@@ -1,7 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using People_MVC.Models;
+﻿using People_MVC.Models;
 using People_MVC.Models.Repo;
-using People_MVC.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +21,7 @@ namespace People_MVC.Data
         public PersonLanguage Create(Person person, Language language)
         {
             PersonLanguage newPersonLanguage = new PersonLanguage();
-           newPersonLanguage.Person = person;
+            newPersonLanguage.Person = person;
             newPersonLanguage.Language = language;
             _dbPeopleC.PersonLanguages.Add(newPersonLanguage);
             _dbPeopleC.SaveChanges();

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace People_MVC.Models.Service
 {
-    interface ICountryService
+    public interface ICountryService
     {
         Country Add(CreateCountryViewModel country);
 

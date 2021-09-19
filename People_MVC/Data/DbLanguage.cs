@@ -1,6 +1,7 @@
-﻿using People_MVC.Models.ViewModel;
-using People_MVC.Views;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using People_MVC.Models;
+using People_MVC.Models.Repo;
+using People_MVC.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace People_MVC.Data
 {
-    public class DbLanguage
+    public class DbLanguage : ILanguageRepo
     {
         private readonly PeopleDbContext _dbPeopleC;
 
@@ -20,7 +21,7 @@ namespace People_MVC.Data
         public Language Create(CreateLanguageViewModel language)
         {
             Language newLanguage = new Language();
-                newLanguage.Name = language.Name;
+            newLanguage.Name = language.Name;
 
             _dbPeopleC.Languages.Add(newLanguage);
             _dbPeopleC.SaveChanges();
@@ -78,5 +79,20 @@ namespace People_MVC.Data
             }
         }
 
+        public List<Language> Read(PersonLanguage personLanguage)
+        {
+            var query = (from language in _dbPeopleC.Languages select language)
+                        .Include(c => c.PersonLanguages);
+
+            return query.ToList();
+        }
+
+        public Language FindBy(string search)
+        {
+            var serchLanguage = (from language in _dbPeopleC.Languages
+                                   select language)
+                         .FirstOrDefault();
+            return serchLanguage;
+        }
     }
 }

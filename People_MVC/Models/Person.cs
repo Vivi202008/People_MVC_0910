@@ -1,4 +1,4 @@
-﻿using People_MVC.Views;
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,15 +9,13 @@ namespace People_MVC.Models
 {
     public class Person
     {
-        internal static object Languages;
-
         [Key]
         public int ID { get; set; }
 
         [Required]
         [StringLength(50, MinimumLength = 2)]
         [RegularExpression(@"[A-z]*", ErrorMessage = "Use only alphabets.")]
-        public string City { get; set; }
+        public City City { get; set; }
 
         [Required(ErrorMessage = "Fill out name!")]
         [StringLength(50, MinimumLength = 2)]

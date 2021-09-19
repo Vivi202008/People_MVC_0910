@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using People_MVC.Models.ViewModel;
 using People_MVC.Models;
-using People_MVC.Views;
+
 
 namespace People_MVC.Data
 {
@@ -37,9 +37,9 @@ namespace People_MVC.Data
         }
 
         public DbSet<Person> People { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Country> Countries { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<PersonLanguage> PersonLanguages { get; set; }
-        public DbSet<City> Cities { get; set; }
-        public DbSet<Country> Countries { get; set; }    
     }
 }
