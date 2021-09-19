@@ -34,7 +34,7 @@ namespace People_MVC.Models.Repo
             idCounter = _peopleList.Count();
         }
 
-        public Person Create(Person person)
+        public Person Create(CreatePersonViewModel person)
         {
             idCounter++;
             Person addPerson = new Person();
@@ -76,5 +76,6 @@ namespace People_MVC.Models.Repo
                 return _peopleList[index];               
             }
         }
+
     }
 }

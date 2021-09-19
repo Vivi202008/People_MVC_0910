@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace People_MVC.Views
 {
-    public class PersonInsurance
+    public class PersonLanguage
     {
         public int PersonId { get; set; }
         public Person Person { get; set; }
 
-        public int InsuranceId { get; set; }
-        public Insurance Insurance { get; set; }
+        public int LanguageId { get; set; }
+        public Language Language { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace People_MVC.Views
 {
-    public class Insurance
+    public class Language
     {
         [Key]
         public int Id { get; set; }
@@ -15,6 +15,6 @@ namespace People_MVC.Views
         [MaxLength(120)]
         public string Name { get; set; }
 
-        public List<PersonInsurance> PersonInsurances { get; set; }
+        public List<PersonLanguage> PersonLanguages { get; set; }
     }
 }

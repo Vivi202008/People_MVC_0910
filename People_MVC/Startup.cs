@@ -30,7 +30,22 @@ namespace People_MVC
         {
             services.AddControllersWithViews();
             services.AddScoped<IPeopleService, PeopleService>();
-            services.AddScoped<IPeopleRepo,InMemoryPeopleRepo>();
+            services.AddScoped<IPeopleRepo,DbPeople>();
+
+            services.AddScoped<IPeopleRepo, DbPeople>();
+            services.AddScoped<IPeopleService, PeopleService>();
+
+            services.AddScoped<ICityRepo, DbCity>();
+            services.AddScoped<ICityService, CityService>();
+
+            services.AddScoped<ICountryRepo, DbCountry>();
+            services.AddScoped<ICountryService, CountryService>();
+
+            services.AddScoped<ILanguageRepo, DbLanguage>();
+            services.AddScoped<ILanguageService, LanguageService>();
+
+            services.AddScoped<IPersonLanguageRepo, DbPersonLanguage>();
+
             services.AddDbContext<PeopleDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("PeopleDb")));
             

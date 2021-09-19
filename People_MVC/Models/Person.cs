@@ -9,6 +9,8 @@ namespace People_MVC.Models
 {
     public class Person
     {
+        internal static object Languages;
+
         [Key]
         public int ID { get; set; }
 
@@ -17,7 +19,7 @@ namespace People_MVC.Models
         [RegularExpression(@"[A-z]*", ErrorMessage = "Use only alphabets.")]
         public string City { get; set; }
 
-        [Required(ErrorMessage = "You need to fill out name field!")]
+        [Required(ErrorMessage = "Fill out name!")]
         [StringLength(50, MinimumLength = 2)]
         public string Name { get; set; }
 
@@ -26,7 +28,8 @@ namespace People_MVC.Models
         [StringLength(20, MinimumLength = 8)]
         public string TeleNumber { get; set; }
 
-        public List<PersonInsurance> PersonInsurances { get; set; }
+        public List<PersonLanguage> PersonLanguages { get; set; }
+
     }
 }
 

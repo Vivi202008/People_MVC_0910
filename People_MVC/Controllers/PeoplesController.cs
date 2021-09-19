@@ -30,8 +30,7 @@ namespace People_MVC.Controllers
         public IActionResult Index()
         {
             PeopleViewModel vm = new PeopleViewModel();
-            vm.PeopleList = _context.Persons.ToList();
-
+            vm.PeopleList = _context.People.ToList();
             if (InMemoryPeopleRepo.allPeopleList.Count == 0)
             {
                 InMemoryPeopleRepo.CreateDefaultPeoples();
@@ -51,6 +50,9 @@ namespace People_MVC.Controllers
             //    peopleViewModel.PeopleList = _peopleService.FindBy(peopleViewModel.Search);
             //    return View(peopleViewModel);
 
+            PeopleViewModel vm = new PeopleViewModel();
+            vm.PeopleList = _context.People.ToList();
+
             if (!string.IsNullOrEmpty(peopleViewModel.Search))
             {
                 return View(_peopleService.FindBy(peopleViewModel));
@@ -68,7 +70,7 @@ namespace People_MVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Person person)
+        public IActionResult Create(CreatePersonViewModel person)
         {
             if (ModelState.IsValid)
                     {

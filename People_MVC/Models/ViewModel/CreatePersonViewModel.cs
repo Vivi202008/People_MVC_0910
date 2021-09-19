@@ -10,11 +10,20 @@ namespace People_MVC.Models
     public class CreatePersonViewModel
     {
         [Required]
-        [StringLength(50, MinimumLength = 2)]
-        [RegularExpression(@"[A-z]*", ErrorMessage = "Use only alphabets.")]
+        [StringLength(30, MinimumLength = 2)]
+        [RegularExpression(@"[A-zåäöÅÖÄ]*", ErrorMessage = "Use only alphabets!")]
         public string City { get; set; }
-        
-        [Required(ErrorMessage = "You need to fill out name field!")]
+
+        [Required]
+        [StringLength(30, MinimumLength = 2)]
+        public int[] Languages { get; set; }
+
+        [Required]
+        [StringLength(30, MinimumLength = 2)]
+        [RegularExpression(@"[A-zåäöÅÖÄ]*", ErrorMessage = "Use only alphabets!")]
+        public string Country { get; set; }
+
+        [Required(ErrorMessage = "Fill out name field!")]
         [StringLength(50,MinimumLength =2)]
         public string Name{ get; set; }
 

@@ -8,7 +8,7 @@ namespace People_MVC.Models.Repo
     public interface IPeopleRepo
     {
        // get all
-       public Person Create(Person person);
+       public Person Create(CreatePersonViewModel person);
         public List<Person> Read();
         public Person Read(int id);
 

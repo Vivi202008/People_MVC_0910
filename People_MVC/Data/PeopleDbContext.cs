@@ -18,26 +18,28 @@ namespace People_MVC.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<PersonInsurance>().HasKey(ci =>
+            modelBuilder.Entity<PersonLanguage>().HasKey(ci =>
             new
             {
                 ci.PersonId,
-                ci.InsuranceId
+                ci.LanguageId
             });
 
-            modelBuilder.Entity<PersonInsurance>()
+            modelBuilder.Entity<PersonLanguage>()
                 .HasOne<Person>(ci => ci.Person)
-                .WithMany(i => i.PersonInsurances)
+                .WithMany(i => i.PersonLanguages)
                 .HasForeignKey(ci => ci.PersonId);
 
-            modelBuilder.Entity<PersonInsurance>()
-                .HasOne<Insurance>(ci => ci.Insurance)
-                .WithMany(i => i.PersonInsurances)
-                .HasForeignKey(ci => ci.InsuranceId);
+            modelBuilder.Entity<PersonLanguage>()
+                .HasOne<Language>(ci => ci.Language)
+                .WithMany(i => i.PersonLanguages)
+                .HasForeignKey(ci => ci.LanguageId);
         }
 
-        public DbSet<Person> Persons{ get;set; }
-        public DbSet<Insurance> Insurances { get; set; }
-        public DbSet<PersonInsurance> PersonInsurances { get; set; }
+        public DbSet<Person> People { get; set; }
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<PersonLanguage> PersonLanguages { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Country> Countries { get; set; }    
     }
 }

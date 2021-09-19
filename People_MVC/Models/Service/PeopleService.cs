@@ -1,4 +1,5 @@
-﻿using People_MVC.Models.Repo;
+﻿using People_MVC.Data;
+using People_MVC.Models.Repo;
 using People_MVC.Models.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -9,11 +10,11 @@ namespace People_MVC.Models.Service
 {
     public class PeopleService : IPeopleService
     {
-        IPeopleRepo _peopleRepo;
+        IPeopleRepo _peopleRepo ;
         InMemoryPeopleRepo PeopleData = new InMemoryPeopleRepo();
         public static List<Person> _peopleList = new List<Person>();
 
-        
+        //Constructor Injection--Fetching IPeopleRepo Object from Startup ConfigureServices
 
         public PeopleService(IPeopleRepo peopleRepo)
         {
@@ -26,7 +27,7 @@ namespace People_MVC.Models.Service
 
         public Person Add(CreatePersonViewModel person)
         {
-            Person addPerson = new Person
+            CreatePersonViewModel addPerson = new CreatePersonViewModel
             {
                 ID = _peopleList.Count+1,
                 City = person.City,
@@ -34,11 +35,6 @@ namespace People_MVC.Models.Service
                 TeleNumber =person.TeleNumber
             };
             return _peopleRepo.Create(addPerson);
-        }
-
-        public Person Add(Person person)
-        {
-            return _peopleRepo.Create(person);
         }
 
         public PeopleViewModel All()
