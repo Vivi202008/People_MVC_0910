@@ -37,7 +37,7 @@ namespace People_MVC.Controllers
         public IActionResult Index()
         {
             PeopleViewModel vm = new PeopleViewModel();
-            vm.PeopleList = _context.People.ToList();
+             vm.PeopleList = _context.People.ToList();
             if (InMemoryPeopleRepo.allPeopleList.Count == 0)
             {
                 InMemoryPeopleRepo.CreateDefaultPeoples();
