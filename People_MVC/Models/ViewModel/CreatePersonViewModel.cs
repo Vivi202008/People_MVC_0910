@@ -12,7 +12,7 @@ namespace People_MVC.Models
         [Required]
         [StringLength(30, MinimumLength = 2)]
         [RegularExpression(@"[A-zåäöÅÖÄ]*", ErrorMessage = "Use only alphabets!")]
-        public string City { get; set; }
+        public City City { get; set; }
 
         [Required]
         [StringLength(30, MinimumLength = 2)]

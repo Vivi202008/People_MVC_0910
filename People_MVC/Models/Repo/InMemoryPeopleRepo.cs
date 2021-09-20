@@ -26,14 +26,14 @@ namespace People_MVC.Models.Repo
 
         public static void CreateDefaultPeoples()
         {
-            _peopleList.Add(new Person() { ID = 1, City="Beijing", Name="Helena", TeleNumber="1112345677"});
+            _peopleList.Add(new Person() { ID = 1, City ="Beijing", Name="Helena", TeleNumber="1112345677"});
             _peopleList.Add(new Person() { ID = 2, City = "Göteborg", Name = "Erik", TeleNumber = "22234678236" });
             _peopleList.Add(new Person() { ID = 3, City = "Paris", Name = "Johan", TeleNumber = "33334567890" });
             _peopleList.Add(new Person() { ID = 4, City = "Beijing", Name = "Hua", TeleNumber = "88888888888" });
             _peopleList.Add(new Person() { ID = 5, City = "Paris", Name = "Linda", TeleNumber = "23333333343" });
             idCounter = _peopleList.Count();
         }
-
+        
         public Person Create(CreatePersonViewModel person)
         {
             idCounter++;

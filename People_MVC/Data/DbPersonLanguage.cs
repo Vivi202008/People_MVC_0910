@@ -1,5 +1,6 @@
 ﻿using People_MVC.Models;
 using People_MVC.Models.Repo;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,6 +52,20 @@ namespace People_MVC.Data
             }
         }
 
+        public List<PersonLanguage> Update(int[] languages, Person person)
+        {
+            for (int i = 0; i < languages.Length; i++)
+            {
+                Language selectedLanguage = _languageRepo.Read(languages[i]);
+                Create(person, selectedLanguage);
+                PersonLanguage newPersonLanguage = new PersonLanguage { Language = selectedLanguage, Person = person };
+                _dbPeopleC.PersonLanguages.Add(newPersonLanguage);
+            }
+
+            _dbPeopleC.SaveChanges();
+            return person.PersonLanguages;
+        }        
+        
         public PersonLanguage Read(int id)
         {
             var query = (from personLanguage in _dbPeopleC.PersonLanguages select personLanguage).FirstOrDefault(x => x.PersonId == id);
@@ -65,19 +80,5 @@ namespace People_MVC.Data
             return query.ToList();
         }
 
-        public List<PersonLanguage> Update(int[] languages, Person person)
-        {
-            for (int i = 0; i < languages.Length; i++)
-            {
-                Language selectedLanguage = _languageRepo.Read(languages[i]);
-                Create(person, selectedLanguage);
-                PersonLanguage newPersonLanguage = new PersonLanguage { Language = selectedLanguage, Person = person };
-                _dbPeopleC.PersonLanguages.Add(newPersonLanguage);
-            }
-
-            _dbPeopleC.SaveChanges();
-
-            return person.PersonLanguages;
-        }
     }
 }

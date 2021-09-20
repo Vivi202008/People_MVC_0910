@@ -15,8 +15,8 @@ namespace People_MVC.Controllers
     public class PeoplesController : Controller
     {
         private readonly IPeopleService _peopleService;
-        IPeopleRepo _peopleRepo;
-        PeopleDbContext _context;
+        readonly IPeopleRepo _peopleRepo;
+        readonly PeopleDbContext _context;
         private readonly ICityService _cityService;
         private readonly ILanguageService _languageService;
         private readonly IPersonLanguageRepo _personLanguageRepo;
