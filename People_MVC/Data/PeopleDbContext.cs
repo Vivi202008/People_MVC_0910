@@ -31,7 +31,7 @@ namespace People_MVC.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            
             modelBuilder.Entity<PersonLanguage>().HasKey(ci =>
             new
             {
@@ -43,7 +43,7 @@ namespace People_MVC.Data
                 .HasOne(mbo => mbo.City);
 
             modelBuilder.Entity<City>()
-                 .HasMany(mbm => mbm.People);
+                 .HasMany(mbm => mbm.Persons);
 
             modelBuilder.Entity<City>()
                 .HasOne(mbo => mbo.Country);

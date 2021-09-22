@@ -1,14 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using People_MVC.Data;
 using People_MVC.Models;
 using People_MVC.Models.Repo;
 using People_MVC.Models.Service;
 using People_MVC.Models.ViewModel;
-
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace People_MVC.Controllers
 {
@@ -38,12 +35,14 @@ namespace People_MVC.Controllers
         {
             PeopleViewModel vm = new PeopleViewModel();
              vm.people = _context.Persons.ToList();
-            if (InMemoryPeopleRepo.allPeopleList.Count == 0)
-            {
-                InMemoryPeopleRepo.CreateDefaultPeoples();
-            }
-            //return View(_peopleService.All());
             return View(vm);
+            
+            //if (InMemoryPeopleRepo.allPeopleList.Count == 0)
+            //{
+            //    InMemoryPeopleRepo.CreateDefaultPeoples();
+            //}
+            //return View(_peopleService.All());
+            
         }
 
         public PartialViewResult ListOfPeople()
@@ -70,6 +69,7 @@ namespace People_MVC.Controllers
             }
         }
 
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -80,11 +80,13 @@ namespace People_MVC.Controllers
         public IActionResult Create(CreatePersonViewModel person)
         {
             if (ModelState.IsValid)
-                    {
-                        Person person1 = _peopleRepo.Create(person);
-                        _ = person1;
-                        return RedirectToAction(nameof(Index));
-                    }
+             {
+                Person person1 = _peopleRepo.Create(person);
+                _ = person1;
+                _context.Persons.Add(person1);
+                _context.SaveChanges();
+                return RedirectToAction(nameof(Index));
+             }
                 return View(new CreatePersonViewModel());
         }
        
@@ -92,7 +94,33 @@ namespace People_MVC.Controllers
         public IActionResult Delete(int id)
         {
             _peopleService.Remove(id);
+            Person deletePerson = _context.Persons.Find(id);
+            _context.Persons.Remove(deletePerson);
             return View("Index", _peopleService.All());
         }
+
+        public ActionResult Login()
+        {
+            ViewBag.LoginState = "Before login...";
+            return View();
+        }
+
+        //[HttpPost]
+        //public ActionResult Login(FormCollection fc)
+        //{
+        //    string email = fc["inputEmail3"];
+        //    string password = fc["inputPassword3"];
+        //    var user = _context.Persons.Where(b=>b.Email & base.Password == password);
+        //    if (user.Count() > 0)
+        //    {
+        //        ViewBag.LoginState = email + "after login...";
+        //    }
+        //    else
+        //    {
+        //        ViewBag.LoginState = email + "don't exist.";
+
+        //    }
+        //    return View();
+        //}
     }
 }

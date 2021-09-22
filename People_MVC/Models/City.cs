@@ -11,8 +11,9 @@ namespace People_MVC.Models
         [Key]
         public int CityId { get; set; }
         public string Name { get; set; }
+
         //public int CountryId { get; set; }
-        public Country Country { get; set; }
-        public List<Person> People { get; set; }
+        public Country Country { get; set; }  //many to one
+        public List<Person> Persons { get; set; }   //one to many
     }
 }

@@ -15,7 +15,7 @@ namespace People_MVC.Models
         [MaxLength(40)]
         public string Name { get; set; }
 
-        public List<PersonLanguage> PersonLanguages { get; set; }
+        public List<PersonLanguage> PersonLanguages { get; set; }  //many to many
     }
 }
 

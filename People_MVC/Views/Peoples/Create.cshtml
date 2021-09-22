@@ -5,9 +5,10 @@
 }
 
 <h1>Creat</h1>
-
-<form asp-action="Create" asp-controller="Peoples" method="post">
-
+@using (Html.BeginForm())
+{
+    <form asp-action="Create" asp-controller="Peoples" method="post">
+    
     <label asp-for="Name"></label>
     <input asp-for="Name" />
     <span asp-validation-for="Name"></span>
@@ -16,9 +17,9 @@
     <input asp-for="City" />
     <span asp-validation-for="City"></span>
     <p></p>
-    <label asp-for="Languages"></label>
+    @*<label asp-for="Languages"></label>
     <input asp-for="Languages" />
-    <span asp-validation-for="Languages"></span>
+    <span asp-validation-for="Languages"></span>*@
     <p></p>
     <label asp-for="TeleNumber"></label>
     <input asp-for="TeleNumber" />
@@ -27,6 +28,8 @@
     <button type="submit">Create</button>
     <button type="reset">Reset</button>
 </form>
+            }
+
 
 @*@foreach (var item in PeopleViewModel.PeopleList)
 {

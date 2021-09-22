@@ -8,14 +8,14 @@ namespace People_MVC.Models
         [Key]
         public int PersonId { get; set; }
 
-        public City City { get; set; }
+        public City City { get; set; }   //one to one
 
         public string Name { get; set; }
 
         public string TeleNumber { get; set; }
 
-        //public Country Country { get; set; }
-        public List<PersonLanguage> PersonLanguages { get; set; }
+        //public Country Country { get; set; }  
+        public List<PersonLanguage> PersonLanguages { get; set; }  //one to many
         //public List<PersonLanguage> Languages { get; set; } = new List<PersonLanguage>();
 
     }
