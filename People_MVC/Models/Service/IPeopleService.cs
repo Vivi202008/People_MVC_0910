@@ -15,7 +15,8 @@ namespace People_MVC.Models.Service
              
         Person FindBy(int id);
         bool Remove(int id);
-    
+
         //Person Edit(int id, Person person);
+        PersonLanguage AddToPerson(int LanguageID, int PersonID);
     }
 }

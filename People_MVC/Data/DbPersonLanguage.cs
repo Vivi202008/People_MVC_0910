@@ -21,9 +21,11 @@ namespace People_MVC.Data
 
         public PersonLanguage Create(Person person, Language language)
         {
-            PersonLanguage newPersonLanguage = new PersonLanguage();
-            newPersonLanguage.Person = person;
-            newPersonLanguage.Language = language;
+            PersonLanguage newPersonLanguage = new PersonLanguage
+            {
+                Person = person,
+                Language = language
+            };
             _dbPeopleC.PersonLanguages.Add(newPersonLanguage);
             _dbPeopleC.SaveChanges();
 

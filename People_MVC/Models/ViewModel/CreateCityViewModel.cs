@@ -9,7 +9,7 @@ namespace People_MVC.Models.ViewModel
 {
     public class CreateCityViewModel
     {
-        public int ID { get; set; }
+        public int CityId { get; set; }
 
         [Required(ErrorMessage = "Fill out city's name!")]
         [RegularExpression(@"[A-zåöä]*", ErrorMessage = "Use only alphabets.")]

@@ -17,5 +17,6 @@ namespace People_MVC.Models.Repo
         public bool Delete(Language language);
         public Language Update(Language language);
         List<Language> Read();
+        PersonLanguage AddToPerson(int languageID, int personID);
     }
 }

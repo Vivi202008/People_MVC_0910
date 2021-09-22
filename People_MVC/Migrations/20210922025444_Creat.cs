@@ -2,7 +2,7 @@
 
 namespace People_MVC.Migrations
 {
-    public partial class New : Migration
+    public partial class Creat : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,67 +10,66 @@ namespace People_MVC.Migrations
                 name: "Countries",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false)
+                    CountryId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Countries", x => x.ID);
+                    table.PrimaryKey("PK_Countries", x => x.CountryId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Languages",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    LanguageId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(maxLength: 120, nullable: false)
+                    Name = table.Column<string>(maxLength: 40, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Languages", x => x.Id);
+                    table.PrimaryKey("PK_Languages", x => x.LanguageId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Cities",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false)
+                    CityId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
-                    CountryID = table.Column<int>(nullable: true)
+                    CountryId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cities", x => x.ID);
+                    table.PrimaryKey("PK_Cities", x => x.CityId);
                     table.ForeignKey(
-                        name: "FK_Cities_Countries_CountryID",
-                        column: x => x.CountryID,
+                        name: "FK_Cities_Countries_CountryId",
+                        column: x => x.CountryId,
                         principalTable: "Countries",
-                        principalColumn: "ID",
+                        principalColumn: "CountryId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "People",
+                name: "Persons",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false)
+                    PersonId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    City = table.Column<string>(maxLength: 50, nullable: false),
-                    Name = table.Column<string>(maxLength: 50, nullable: false),
-                    TeleNumber = table.Column<string>(maxLength: 20, nullable: false),
-                    CityID = table.Column<int>(nullable: true)
+                    CityId = table.Column<int>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    TeleNumber = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_People", x => x.ID);
+                    table.PrimaryKey("PK_Persons", x => x.PersonId);
                     table.ForeignKey(
-                        name: "FK_People_Cities_CityID",
-                        column: x => x.CityID,
+                        name: "FK_Persons_Cities_CityId",
+                        column: x => x.CityId,
                         principalTable: "Cities",
-                        principalColumn: "ID",
+                        principalColumn: "CityId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -78,40 +77,47 @@ namespace People_MVC.Migrations
                 name: "PersonLanguages",
                 columns: table => new
                 {
+                    PLanguageId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PersonId = table.Column<int>(nullable: false),
                     LanguageId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PersonLanguages", x => new { x.PersonId, x.LanguageId });
+                    table.PrimaryKey("PK_PersonLanguages", x => x.PLanguageId);
                     table.ForeignKey(
                         name: "FK_PersonLanguages_Languages_LanguageId",
                         column: x => x.LanguageId,
                         principalTable: "Languages",
-                        principalColumn: "Id",
+                        principalColumn: "LanguageId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PersonLanguages_People_PersonId",
+                        name: "FK_PersonLanguages_Persons_PersonId",
                         column: x => x.PersonId,
-                        principalTable: "People",
-                        principalColumn: "ID",
+                        principalTable: "Persons",
+                        principalColumn: "PersonId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cities_CountryID",
+                name: "IX_Cities_CountryId",
                 table: "Cities",
-                column: "CountryID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_People_CityID",
-                table: "People",
-                column: "CityID");
+                column: "CountryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PersonLanguages_LanguageId",
                 table: "PersonLanguages",
                 column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PersonLanguages_PersonId",
+                table: "PersonLanguages",
+                column: "PersonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Persons_CityId",
+                table: "Persons",
+                column: "CityId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -123,7 +129,7 @@ namespace People_MVC.Migrations
                 name: "Languages");
 
             migrationBuilder.DropTable(
-                name: "People");
+                name: "Persons");
 
             migrationBuilder.DropTable(
                 name: "Cities");

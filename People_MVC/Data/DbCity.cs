@@ -20,6 +20,7 @@ namespace People_MVC.Data
         public City Create(CreateCityViewModel city)
         {
             City newCity = new City { Name = city.Name };
+            
             _dbPeopleC.Cities.Add(newCity);
             _dbPeopleC.SaveChanges();
 
@@ -34,13 +35,13 @@ namespace People_MVC.Data
 
         public City Read(int id)
         {
-            City readCity = (from city in _dbPeopleC.Cities select city).FirstOrDefault(city => city.ID == id);
+            City readCity = (from city in _dbPeopleC.Cities select city).FirstOrDefault(city => city.CityId == id);
             return readCity;
         }
 
         public City Update(City city)
         {
-            var query = from updateCity in _dbPeopleC.Cities where updateCity.ID == city.ID select updateCity;
+            var query = from updateCity in _dbPeopleC.Cities where updateCity.CityId == city.CityId select updateCity;
 
             foreach (City data in query)
             {
@@ -58,7 +59,7 @@ namespace People_MVC.Data
             }
             else
             {
-                var deleteCity = _dbPeopleC.Cities.Where(x => x.ID == city.ID).FirstOrDefault();
+                var deleteCity = _dbPeopleC.Cities.Where(x => x.CityId == city.CityId).FirstOrDefault();
                 if (deleteCity == null)
                 {
                     return false;

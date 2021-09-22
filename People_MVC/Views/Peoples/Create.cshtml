@@ -7,13 +7,18 @@
 <h1>Creat</h1>
 
 <form asp-action="Create" asp-controller="Peoples" method="post">
+
+    <label asp-for="Name"></label>
+    <input asp-for="Name" />
+    <span asp-validation-for="Name"></span>
+    <p></p>
     <label asp-for="City"></label>
     <input asp-for="City" />
     <span asp-validation-for="City"></span>
     <p></p>
-    <label asp-for="Name"></label>
-    <input asp-for="Name" />
-    <span asp-validation-for="Name"></span>
+    <label asp-for="Languages"></label>
+    <input asp-for="Languages" />
+    <span asp-validation-for="Languages"></span>
     <p></p>
     <label asp-for="TeleNumber"></label>
     <input asp-for="TeleNumber" />

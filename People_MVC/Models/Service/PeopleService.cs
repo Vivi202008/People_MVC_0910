@@ -29,7 +29,7 @@ namespace People_MVC.Models.Service
         {
             CreatePersonViewModel addPerson = new CreatePersonViewModel
             {
-                ID = _peopleList.Count+1,
+                //ID = _peopleList.Count+1,
                 City = person.City,
                 Name = person.Name,
                 TeleNumber =person.TeleNumber
@@ -40,7 +40,7 @@ namespace People_MVC.Models.Service
         public PeopleViewModel All()
         {
             PeopleViewModel indexViewModel = new PeopleViewModel();
-            indexViewModel.PeopleList = PeopleData.Read();
+            indexViewModel.people = PeopleData.Read();
             return indexViewModel;
         }
 
@@ -59,7 +59,7 @@ namespace People_MVC.Models.Service
 
         public PeopleViewModel FindBy(PeopleViewModel search)
         {
-            search.PeopleList = _peopleRepo.Read().FindAll(
+            search.people = _peopleRepo.Read().FindAll(
                 person => person.Name.Contains(search.Search,StringComparison.OrdinalIgnoreCase)
                        || person.City.Name.Contains(search.Search, StringComparison.OrdinalIgnoreCase)
                        || person.TeleNumber.Contains(search.Search)
@@ -68,6 +68,9 @@ namespace People_MVC.Models.Service
             return search;
         }
 
-
+        public PersonLanguage AddToPerson(int LanguageID, int PersonID)
+        {
+            return _peopleRepo.AddToPerson(LanguageID, PersonID);
+        }
     }
 }

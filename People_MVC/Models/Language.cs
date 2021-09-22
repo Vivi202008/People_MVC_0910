@@ -9,10 +9,10 @@ namespace People_MVC.Models
     public class Language
     {
         [Key]
-        public int Id { get; set; }
+        public int LanguageId { get; set; }
 
         [Required]
-        [MaxLength(120)]
+        [MaxLength(40)]
         public string Name { get; set; }
 
         public List<PersonLanguage> PersonLanguages { get; set; }

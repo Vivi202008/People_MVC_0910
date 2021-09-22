@@ -14,6 +14,6 @@ namespace People_MVC.Models.Repo
         public City Read(int id);
 
         public City Update(City city);
-        public bool Delete(City country);
+        public bool Delete(City city);
     }
 }

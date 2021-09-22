@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace People_MVC.Models.Service
 {
-    public class LanguageService:ILanguageService
+    public class LanguageService : ILanguageService
     {
         private readonly ILanguageRepo _languageRepo;
         public LanguageService(ILanguageRepo languageRepo)
@@ -50,6 +50,11 @@ namespace People_MVC.Models.Service
         {
             Language language = FindBy(id);
             return _languageRepo.Delete(language);
+        } 
+        
+        public PersonLanguage AddToPerson(int LanguageID,int PersonID)
+        {
+            return _languageRepo.AddToPerson(LanguageID, PersonID);
         }
     }
 }

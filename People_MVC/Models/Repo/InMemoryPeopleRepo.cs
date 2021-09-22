@@ -38,9 +38,9 @@ namespace People_MVC.Models.Repo
         {
             idCounter++;
             Person addPerson = new Person();
-            addPerson.ID = IdCounter;
+            addPerson.PersonId = IdCounter;
             addPerson.Name = person.Name;
-            addPerson.City = person.City;
+            addPerson.City = new City { Name = person.City };
             addPerson.TeleNumber = person.TeleNumber;
 
             _peopleList.Add(addPerson);
@@ -55,7 +55,7 @@ namespace People_MVC.Models.Repo
 
         public Person Read(int id)
         {
-            return _peopleList.FirstOrDefault(p => p.ID == id);
+            return _peopleList.FirstOrDefault(p => p.PersonId == id);
         }
 
         public List<Person> Read()
@@ -65,7 +65,7 @@ namespace People_MVC.Models.Repo
 
         public Person Update(Person person)
         {
-            int index = _peopleList.FindIndex(p => p.ID == person.ID);
+            int index = _peopleList.FindIndex(p => p.PersonId == person.PersonId);
             if (index == -1)
             {
                  throw new ArgumentNullException();
@@ -77,5 +77,9 @@ namespace People_MVC.Models.Repo
             }
         }
 
+        public PersonLanguage AddToPerson(int languageID, int personID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

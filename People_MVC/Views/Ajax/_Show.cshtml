@@ -8,7 +8,7 @@
     <thead>
         @{ People_MVC.Models.Person p = null;}
         <tr>
-            <th>@Html.LabelFor(m => @p.ID)</th>
+            <th>@Html.LabelFor(m => @p.PersonId)</th>
             <th>@Html.LabelFor(m => @p.Name)</th>
             <th>@Html.LabelFor(m => @p.City)</th>
             <th>@Html.LabelFor(m => @p.TeleNumber)</th>
@@ -17,7 +17,7 @@
     </thead>
     <tbody>
 
-        @foreach (var item in Model.PeopleList)
+        @foreach (var item in Model.people)
         {
             <partial name="_ShowAll" model="item" />            }
     </tbody>

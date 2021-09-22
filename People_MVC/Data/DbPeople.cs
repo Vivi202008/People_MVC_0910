@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using People_MVC.Models;
+using People_MVC.Data;
+using People_MVC.Models.ViewModel;
 using People_MVC.Models.Repo;
 using System;
 using System.Collections.Generic;
@@ -23,6 +25,11 @@ namespace People_MVC.Data
             _personLanguageRepo = personLanguageRepo;
         }
 
+        public PersonLanguage AddToPerson(int languageID, int personID)
+        {
+            throw new NotImplementedException();
+        }
+
         public Person Create(CreatePersonViewModel person)  //?Person person
         {
             City selectedCity = _cityRepo.Read(Convert.ToInt32(person.City));
@@ -32,7 +39,7 @@ namespace People_MVC.Data
             newPerson.City = selectedCity;
             newPerson.TeleNumber = person.TeleNumber;
 
-            _dbPeopleC.People.Add(newPerson);
+            _dbPeopleC.Persons.Add(newPerson);
             _dbPeopleC.SaveChanges();
 
             for (int i = 0; i < person.Languages.Length; i++)
@@ -52,14 +59,14 @@ namespace People_MVC.Data
             }
             else
             {
-               var deletePerson = _dbPeopleC.People.Where(x => x.ID == person.ID).FirstOrDefault();
+               var deletePerson = _dbPeopleC.Persons.Where(x => x.PersonId == person.PersonId).FirstOrDefault();
                 if (deletePerson == null)
                 {
                      return false;
                 }
                 else
                 {
-                   _dbPeopleC.People.Remove(deletePerson);
+                   _dbPeopleC.Persons.Remove(deletePerson);
                     _dbPeopleC.SaveChanges();
                     return true;
                 }
@@ -68,17 +75,17 @@ namespace People_MVC.Data
 
         public List<Person> Read()
         {
-            return _dbPeopleC.People.Include(people => people.City).AsParallel().ToList();
+            return _dbPeopleC.Persons.Include(people => people.City).AsParallel().ToList();
         }
 
         public Person Read(int id)
         {
-            return _dbPeopleC.People.Include(people => people.City).FirstOrDefault(person => person.ID == id);
+            return _dbPeopleC.Persons.Include(people => people.City).FirstOrDefault(person => person.PersonId == id);
         }
 
         public Person Update(Person person)
         {
-            var updatePerson = _dbPeopleC.People.FirstOrDefault(p => p.ID == person.ID);
+            var updatePerson = _dbPeopleC.Persons.FirstOrDefault(p => p.PersonId == person.PersonId);
             if (updatePerson != null)
             {
                 _dbPeopleC.Entry(updatePerson).CurrentValues.SetValues(person);

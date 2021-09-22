@@ -10,8 +10,8 @@ using People_MVC.Data;
 namespace People_MVC.Migrations
 {
     [DbContext(typeof(PeopleDbContext))]
-    [Migration("20210920052623_Add people.db")]
-    partial class Addpeopledb
+    [Migration("20210922025444_Creat")]
+    partial class Creat
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,27 +23,27 @@ namespace People_MVC.Migrations
 
             modelBuilder.Entity("People_MVC.Models.City", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("CityId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CountryID")
+                    b.Property<int?>("CountryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.HasKey("CityId");
 
-                    b.HasIndex("CountryID");
+                    b.HasIndex("CountryId");
 
                     b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("People_MVC.Models.Country", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("CountryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -51,66 +51,69 @@ namespace People_MVC.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.HasKey("CountryId");
 
                     b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("People_MVC.Models.Language", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("LanguageId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(120)")
-                        .HasMaxLength(120);
+                        .HasColumnType("nvarchar(40)")
+                        .HasMaxLength(40);
 
-                    b.HasKey("Id");
+                    b.HasKey("LanguageId");
 
                     b.ToTable("Languages");
                 });
 
             modelBuilder.Entity("People_MVC.Models.Person", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("PersonId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CityID")
+                    b.Property<int?>("CityId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TeleNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.HasKey("PersonId");
 
-                    b.HasIndex("CityID");
+                    b.HasIndex("CityId");
 
-                    b.ToTable("People");
+                    b.ToTable("Persons");
                 });
 
             modelBuilder.Entity("People_MVC.Models.PersonLanguage", b =>
                 {
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
+                    b.Property<int>("PLanguageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("LanguageId")
                         .HasColumnType("int");
 
-                    b.HasKey("PersonId", "LanguageId");
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PLanguageId");
 
                     b.HasIndex("LanguageId");
+
+                    b.HasIndex("PersonId");
 
                     b.ToTable("PersonLanguages");
                 });
@@ -119,16 +122,14 @@ namespace People_MVC.Migrations
                 {
                     b.HasOne("People_MVC.Models.Country", "Country")
                         .WithMany("Cities")
-                        .HasForeignKey("CountryID");
+                        .HasForeignKey("CountryId");
                 });
 
             modelBuilder.Entity("People_MVC.Models.Person", b =>
                 {
                     b.HasOne("People_MVC.Models.City", "City")
                         .WithMany("People")
-                        .HasForeignKey("CityID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CityId");
                 });
 
             modelBuilder.Entity("People_MVC.Models.PersonLanguage", b =>

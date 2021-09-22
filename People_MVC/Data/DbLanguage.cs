@@ -38,14 +38,14 @@ namespace People_MVC.Data
 
         public Language Read(int id)
         {
-            Language readLanguage = (from language in _dbPeopleC.Languages select language).Include(c => c.PersonLanguages).FirstOrDefault(language => language.Id == id);
+            Language readLanguage = (from language in _dbPeopleC.Languages select language).Include(c => c.PersonLanguages).FirstOrDefault(language => language.LanguageId == id);
 
             return readLanguage;
         }
 
         public Language Update(Language language)
         {
-            var query = from updateLanguage in _dbPeopleC.Languages where updateLanguage.Id == language.Id select updateLanguage;
+            var query = from updateLanguage in _dbPeopleC.Languages where updateLanguage.LanguageId == language.LanguageId select updateLanguage;
 
             foreach (Language data in query)
             {
@@ -65,7 +65,7 @@ namespace People_MVC.Data
             }
             else
             {
-                var deleteLanguage = _dbPeopleC.Languages.Where(x => x.Id == language.Id).FirstOrDefault();
+                var deleteLanguage = _dbPeopleC.Languages.Where(x => x.LanguageId == language.LanguageId).FirstOrDefault();
                 if (deleteLanguage == null)
                 {
                     return false;
@@ -93,6 +93,16 @@ namespace People_MVC.Data
                                    select language)
                          .FirstOrDefault();
             return serchLanguage;
+        }
+
+        public PersonLanguage AddToPerson(int languageID, int personID)
+        {
+            PersonLanguage personL = new PersonLanguage();
+            personL.LanguageId = languageID;
+            personL.PersonId = personID;
+            _dbPeopleC.PersonLanguages.Add(personL);
+            _dbPeopleC.SaveChanges();
+            return personL;
         }
     }
 }

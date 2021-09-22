@@ -36,14 +36,14 @@ namespace People_MVC.Data
 
         public Country Read(int id)
         {
-            Country readCountry = (from country in _dbPeopleC.Countries select country) .FirstOrDefault(country => country.ID == id);
+            Country readCountry = (from country in _dbPeopleC.Countries select country) .FirstOrDefault(country => country.CountryId == id);
 
             return readCountry;
         }
 
         public Country Update(Country country)
         {
-            var query = from updateCountry in _dbPeopleC.Countries where updateCountry.ID == country.ID select updateCountry;
+            var query = from updateCountry in _dbPeopleC.Countries where updateCountry.CountryId == country.CountryId select updateCountry;
 
             foreach (Country data in query)
             {
@@ -63,7 +63,7 @@ namespace People_MVC.Data
             }
             else
             {
-                var deleteCountry = _dbPeopleC.Countries.Where(x => x.ID == Country.ID).FirstOrDefault();
+                var deleteCountry = _dbPeopleC.Countries.Where(x => x.CountryId == Country.CountryId).FirstOrDefault();
                 if (deleteCountry == null)
                 {
                      return false;

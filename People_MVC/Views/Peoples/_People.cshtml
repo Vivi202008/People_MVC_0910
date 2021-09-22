@@ -7,13 +7,18 @@
 
 <table class="table">
     <tbody>       
-            <tr>
-                <td>@Model.ID</td>
-                <td>@Model.City</td>
-                <td>@Model.Name</td>
-                <td>@Model.TeleNumber</td>
-                <td><a asp-action="Delete" asp-route-id="@Model.ID">Delete</a></td>
-            </tr>       
+        <tr>
+            <td>@Model.PersonId</td>
+            <td>@Model.Name</td>
+
+            <td>@Html.DisplayNameFor(model => model.City.Name)</td>
+            @*@Html.DisplayNameFor(model => model.City.Country)
+            <td>@Model.City.Country.Name</td>*@
+            <td>@Model.TeleNumber</td>
+            @*@Html.DisplayNameFor(model => model.PersonLanguages)
+            <td>@Model.PersonLanguages.ToList()</td>*@
+            <td><a asp-action="Delete" asp-route-id="@Model.PersonId">Delete</a></td>
+        </tr>       
     </tbody>
 </table>
 
