@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using People_MVC.Data;
 using People_MVC.Models;
 using People_MVC.Models.Repo;
 using People_MVC.Models.Service;
@@ -11,12 +12,15 @@ namespace People_MVC.Controllers
     {
         private readonly IPeopleService _peopleService;
         private readonly IPeopleRepo _peopleRepo;
+        readonly PeopleDbContext _context;
         PeopleService peopleService = new PeopleService();
 
-        public AjaxController(IPeopleService peopleService, IPeopleRepo peopleRepo)
+        public AjaxController(IPeopleService peopleService, IPeopleRepo peopleRepo, PeopleDbContext context)
         {
             _peopleService = peopleService;
             _peopleRepo = peopleRepo;
+            _context = context;
+
         }
 
         [HttpGet]
@@ -39,16 +43,19 @@ namespace People_MVC.Controllers
             return PartialView(
                 "_Show", peopleService.FindBy(peopleSearch));
         }
+
         //Get
         public IActionResult Management()
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult PersonDetails(int ID)
         {      
             return PartialView("_PersonDetails",_peopleRepo.Read(ID));
         }
+
         [HttpPost]
         public IActionResult Delete(int ID)
         {            

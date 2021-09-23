@@ -19,7 +19,7 @@ namespace People_MVC.Data
 
           protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=PeopleDb;Trusted_Connection=True;MultipleActiveResultSets=true");
+             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=PeopleDb;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
 
         public DbSet<Person> Persons{ get; set; }
@@ -31,7 +31,9 @@ namespace People_MVC.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+
+            modelBuilder.Seed();
+
             modelBuilder.Entity<PersonLanguage>().HasKey(ci =>
             new
             {
@@ -52,9 +54,6 @@ namespace People_MVC.Data
                 .HasMany(mbm => mbm.Cities);
 
             modelBuilder.Entity<PersonLanguage>()
-                .HasKey(mb => mb.PLanguageId);
-
-            modelBuilder.Entity<PersonLanguage>()
                 .HasOne<Person>(ci => ci.Person)
                 .WithMany(ci => ci.PersonLanguages)
                 .HasForeignKey(ci => ci.PersonId);
@@ -63,10 +62,6 @@ namespace People_MVC.Data
                 .HasOne<Language>(ci => ci.Language)
                 .WithMany(i => i.PersonLanguages)
                 .HasForeignKey(ci => ci.LanguageId);
-
-             
         }
-
-
     }
 }

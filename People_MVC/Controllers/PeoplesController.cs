@@ -61,14 +61,32 @@ namespace People_MVC.Controllers
 
             if (!string.IsNullOrEmpty(peopleViewModel.Search))
             {
-                return View(_peopleService.FindBy(peopleViewModel));
+                var _peoples = from u in _context.Persons
+                               where u.Name == peopleViewModel.Search
+                               select u;
+
+                _peoples = _context.Persons.Where(u => u.Name == peopleViewModel.Search);
+
+                return View(_peoples);
             }
             else
             {
-                return View(_peopleService.All());
+                return View(_context.Persons.ToList());
             }
         }
 
+        [HttpPost]
+        public IActionResult SearchSth(string search)
+        {
+            var _peoples = from u in _context.Persons
+                           where u.Name.Contains(search)
+                           select u;
+
+            _peoples = _context.Persons.Where(u => u.Name == search);
+
+            return PartialView(_peoples);
+         
+        }
 
         [HttpGet]
         public IActionResult Create()
@@ -77,13 +95,11 @@ namespace People_MVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CreatePersonViewModel person)
+        public IActionResult Create(Person person)
         {
             if (ModelState.IsValid)
              {
-                Person person1 = _peopleRepo.Create(person);
-                _ = person1;
-                _context.Persons.Add(person1);
+                _context.Persons.Add(person);
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
              }
@@ -93,10 +109,11 @@ namespace People_MVC.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            _peopleService.Remove(id);
+            //_peopleService.Remove(id);
             Person deletePerson = _context.Persons.Find(id);
             _context.Persons.Remove(deletePerson);
-            return View("Index", _peopleService.All());
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
 
         public ActionResult Login()

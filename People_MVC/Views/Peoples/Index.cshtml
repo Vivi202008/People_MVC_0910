@@ -8,11 +8,10 @@
 
 
 
-<form asp-action="Index" method="post">
-    <label asp-for="Search">Please input something to search</label>
-    <input asp-for="Search" />
-    <input type="submit" value="Search">
-
+<form method="post">
+    <label >Please input something to search</label>
+    <input id="searchsth"/>
+    <button type="submit" asp-controller="Peoples" asp-action="SearchSth"> Search</button>
 </form>
 
 <form>

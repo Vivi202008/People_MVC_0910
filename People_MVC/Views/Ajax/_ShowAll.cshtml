@@ -2,13 +2,19 @@
 
 <table class="table">
     <tbody>       
-            <tr>
-                <td>@Model.PersonId</td>
-                <td>@Model.City</td>
-                <td>@Model.Name</td>
-                <td>@Model.TeleNumber</td>
-                <td><a class="Delete1" asp-controller="Peoples" asp-action="Delete" asp-route-id="@Model.PersonId">Delete</a></td>
-            </tr>       
+        <tr>
+            <td>@Model.PersonId</td>
+            <td>@Model.Name</td>
+            <td>@Model.TeleNumber</td>
+
+            <td>@Html.DisplayNameFor(model => model.City.Name)</td>
+            @*@Html.DisplayNameFor(model => model.City.Country)
+        <td>@Model.City.Country.Name</td>*@
+
+            @*@Html.DisplayNameFor(model => model.PersonLanguages)
+        <td>@Model.PersonLanguages.ToList()</td>*@
+            <td><a class="Delete1" asp-controller="Peoples" asp-action="Delete" asp-route-id="@Model.PersonId">Delete</a></td>
+        </tr>       
     </tbody>
 </table>
 

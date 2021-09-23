@@ -71,14 +71,8 @@ body {
 }
 
 table {
-    border-collapse: collapse;
-    margin: auto;
-    text-align: center;
-    color: white;
-    width: 300px;
-    height: 40px;
-    text-decoration: solid;
-    background-color: lavender;
-    padding: 10px;
+    grid-column: 1/2;
+    width: 50vw;
+    margin: 1vw;
 }
 

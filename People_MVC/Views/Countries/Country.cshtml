@@ -1,0 +1,21 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Country
+@{
+}
+
+
+<tr>
+    <td>@Model.Name</td>
+    <td>
+        @foreach (City city in @Model.Cities)
+        {
+            <p>@city.Name</p>
+        }
+    </td>
+    <td><a asp-controller="Countries" asp-action="DeleteCountry" asp-route-id="@Model.CountryId">Remove</a></td>
+</tr>
+
+
+

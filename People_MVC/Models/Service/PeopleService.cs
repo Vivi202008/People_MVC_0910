@@ -59,7 +59,7 @@ namespace People_MVC.Models.Service
 
         public PeopleViewModel FindBy(PeopleViewModel search)
         {
-            search.people = _peopleRepo.Read().FindAll(
+            search.people = _peopleList.FindAll(
                 person => person.Name.Contains(search.Search,StringComparison.OrdinalIgnoreCase)
                        || person.City.Name.Contains(search.Search, StringComparison.OrdinalIgnoreCase)
                        || person.TeleNumber.Contains(search.Search)
