@@ -3,17 +3,18 @@
 <table class="table">
     <tbody>       
         <tr>
-            <td>@Model.PersonId</td>
-            <td>@Model.Name</td>
-            <td>@Model.TeleNumber</td>
+            <th scope="col">@Html.DisplayFor(m => Model.PersonId)</th>
+            <th scope="col">@Html.DisplayFor(m => Model.Name)</th>
+            <th scope="col">@Html.DisplayFor(m => Model.TeleNumber)</th>
+            <th scope="col">@Html.DisplayFor(m => Model.City.Name)</th>
+            <th scope="col">@Html.DisplayFor(m => Model.City.Country)</th>
+            <th scope="col">@Html.DisplayFor(m => Model.PersonLanguages)</th>
+            @*@foreach (var language in @Model.PersonLanguages)
+            {
+            <p> @language.Language.Name</p>
+            }*@
 
-            <td>@Html.DisplayNameFor(model => model.City.Name)</td>
-            @*@Html.DisplayNameFor(model => model.City.Country)
-        <td>@Model.City.Country.Name</td>*@
-
-            @*@Html.DisplayNameFor(model => model.PersonLanguages)
-        <td>@Model.PersonLanguages.ToList()</td>*@
-            <td><a class="Delete1" asp-controller="Peoples" asp-action="Delete" asp-route-id="@Model.PersonId">Delete</a></td>
+            <th><a asp-action="Delete" asp-route-id="@Model.PersonId">Delete</a></th>
         </tr>       
     </tbody>
 </table>

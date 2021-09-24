@@ -8,7 +8,7 @@ namespace People_MVC.Models.ViewModel
 {
     public class CreateCountryViewModel
     {
-        public int CountId { get; set; }
+        public int CountryId { get; set; }
 
         [Required(ErrorMessage = "Fill out Country's name!")]
         [StringLength(30, MinimumLength = 2)]

@@ -1,26 +1,24 @@
-﻿
-@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-
-@model People_MVC.Models.Person
+﻿@model People_MVC.Models.Person
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
 
-<table class="table">
-    <tbody>       
-        <tr>
-            <td>@Model.PersonId</td>
-            <td>@Model.Name</td>
-            <td>@Model.TeleNumber</td>
+    <table class="table table-striped">
+  
+        <tbody>
+            <tr>
+                <th scope="col">@Html.DisplayFor(m => Model.PersonId)</th>
+                <th scope="col">@Html.DisplayFor(m => Model.Name)</th>
+                <th scope="col">@Html.DisplayFor(m => Model.TeleNumber)</th>
+                <th scope="col">@Html.DisplayFor(m => Model.City.Name)</th>
+                <th scope="col">@Html.DisplayFor(m => Model.City.Country.Name)</th>
+                <th scope="col">@Html.DisplayFor(m => Model.PersonLanguages)</th>
+                @*@foreach (var language in @Model.PersonLanguages)
+                { 
+                    <p> @language.Language.Name</p>
+                    }*@
 
-            
-           
-           <td>@Model.City.Country.Name</td>
+                <th><a asp-action="Delete" asp-route-id="@Model.PersonId">Delete</a></th>
+            </tr>
+        </tbody>
 
-            @*@Html.DisplayNameFor(model => model.PersonLanguages)
-        <td>@Model.PersonLanguages.ToList()</td>*@
-            <td><a asp-action="Delete" asp-route-id="@Model.PersonId">Delete</a></td>
-        </tr>       
-    </tbody>
-</table>
+    </table>
 
