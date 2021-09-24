@@ -43,11 +43,12 @@ namespace PeopleMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateCity(CreateCityViewModel city)
+        public IActionResult CreateCity(string cityName)
         {
             if (ModelState.IsValid)
             {
-                _service.Add(city);
+                _service.Add(cityName);
+
             }
 
             return RedirectToAction("Index");
@@ -59,5 +60,7 @@ namespace PeopleMVC.Controllers
             _service.Remove(id);
             return RedirectToAction("Index");
         }
+
+  
     }
 }

@@ -1,4 +1,5 @@
-﻿using People_MVC.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using People_MVC.Models;
 using People_MVC.Models.Repo;
 using People_MVC.Models.ViewModel;
 using System;
@@ -29,9 +30,7 @@ namespace People_MVC.Data
 
         public List<Country> Read()
         {
-            var query = from country in _dbPeopleC.Countries select country;
-
-            return query.ToList();
+            return _dbPeopleC.Countries.Include(c => c.Cities).ToList();
         }
 
         public Country Read(int id)

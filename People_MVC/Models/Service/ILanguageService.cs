@@ -9,7 +9,7 @@ namespace People_MVC.Models.Service
 {
     public interface ILanguageService
     {
-        Language Add(CreateLanguageViewModel language);
+        Language Add(string language);
 
         LanguageViewModel All();
 

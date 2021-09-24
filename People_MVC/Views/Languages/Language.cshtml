@@ -6,6 +6,8 @@
 }
 
 <tr>
+    <td scope="col">@Model.LanguageId</td>
     <td>@Model.Name</td>
-    <td><a asp-controller="Languages" asp-action="RemoveLanguage" asp-route-id="@Model.LanguageId">Remove</a></td>
+    <td><a asp-controller="Languages" asp-action="RemoveLanguage" asp-route-id="@Model.LanguageId">Delete</a></td>
+
 </tr>

@@ -7,30 +7,27 @@
 <h1>Creat</h1>
 @using (Html.BeginForm())
 {
-<form asp-action="Create" asp-controller="Peoples" method="post">
+<form class="form-horizontal" asp-action="Create" asp-controller="Peoples" method="post">
 
-    <label asp-for="Name"></label>
+    <label class="col-sm-2 control-label"asp-for="Name"></label>
     <input asp-for="Name" />
     <span asp-validation-for="Name"></span>
     <p></p>
-    <label asp-for="City"></label>
+    <label class="col-sm-2 control-label"asp-for="City"></label>
     <input asp-for="City" />
     <span asp-validation-for="City"></span>
     <p></p>
-   <label asp-for="Languages"></label>
+   <label class="col-sm-2 control-label" asp-for="Languages"></label>
         <input asp-for="Languages" />
         <span asp-validation-for="Languages"></span>
-            <label asp-for="City"></label>
-        <input asp-for="City" />
-        <span asp-validation-for="City"></span>
         <p></p>
     <p></p>
-    <label asp-for="TeleNumber"></label>
+    <label class="col-sm-2 control-label" asp-for="TeleNumber"></label>
     <input asp-for="TeleNumber" />
     <span asp-validation-for="TeleNumber"></span>
     <p></p>
-    <button type="submit">Create</button>
-    <button type="reset">Reset</button>
+    <button class="btn-primary"type="submit" class="form-control" >Create</button>
+    <button class="badge-danger"type="reset">Reset</button>
 </form>
             }
 

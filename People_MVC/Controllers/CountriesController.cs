@@ -14,6 +14,7 @@ namespace PeopleMVC.Controllers
     {
         private readonly ICountryService _service;
 
+
         public CountriesController(ICountryService service)
         {
             this._service = service;
@@ -38,9 +39,9 @@ namespace PeopleMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateCountry(CreateCountryViewModel country)
+        public IActionResult CreateCountry(string countryName)
         {
-            _service.Add(country);
+            _service.Add(countryName);
             return RedirectToAction("Index");
         }
 
@@ -50,5 +51,8 @@ namespace PeopleMVC.Controllers
             _service.Remove(id);
             return RedirectToAction("Index");
         }
+
+
+
     }
 }

@@ -122,6 +122,8 @@ namespace People_MVC.Controllers
             return View();
         }
 
+
+
         //[HttpPost]
         //public ActionResult Login(FormCollection fc)
         //{

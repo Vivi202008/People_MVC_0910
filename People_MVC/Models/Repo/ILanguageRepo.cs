@@ -8,7 +8,7 @@ namespace People_MVC.Models.Repo
 {
     public interface ILanguageRepo
     {
-        public Language Create(CreateLanguageViewModel language);
+        public Language Create(string language);
 
         public Language Read(int id);
         public List<Language> Read(PersonLanguage personLanguage);

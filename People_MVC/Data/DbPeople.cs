@@ -30,6 +30,8 @@ namespace People_MVC.Data
             throw new NotImplementedException();
         }
 
+     
+
         public Person Create(CreatePersonViewModel person)  //?Person person
         {
             City selectedCity = _cityRepo.Read(Convert.ToInt32(person.City));
@@ -91,6 +93,17 @@ namespace People_MVC.Data
                 _dbPeopleC.Entry(updatePerson).CurrentValues.SetValues(person);
             }
             return person;
+        }
+
+        public string GetCountryName(int personId)
+        {
+            var query = from a in _dbPeopleC.Persons
+                        join b in _dbPeopleC.Cities on a.CityId equals b.CityId
+                        join c in _dbPeopleC.Countries on b.CountryId equals c.CountryId
+                        where a.PersonId==personId
+                        select c.Name;
+            string CountryName = query.ToString();
+            return CountryName;
         }
     }
 }

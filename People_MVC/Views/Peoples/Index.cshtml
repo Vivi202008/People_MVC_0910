@@ -30,9 +30,8 @@
             <th scope="col">Action</th>
         </tr>
     </thead>
+
+    @foreach (var item in Model.people)
+    {@*@await Html.PartialAsync("_ShowAll", item);*@
+     <partial name="_People.cshtml" model="item" />}
 </table>
-@foreach (var item in Model.people)
-{
-    @*@await Html.PartialAsync("_ShowAll", item);*@
-    <partial name="_People.cshtml" model="item" />
-  }

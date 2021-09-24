@@ -17,9 +17,13 @@ namespace People_MVC.Models.Service
             _countryRepo = countryRepo;
         }
 
-        public Country Add(CreateCountryViewModel country)
+        public Country Add(string countryName)
         {
-            return _countryRepo.Create(country);
+            CreateCountryViewModel newCountry = new CreateCountryViewModel
+            {
+                Name = countryName
+            };
+            return _countryRepo.Create(newCountry);
         }
 
         public CountryViewModel All()

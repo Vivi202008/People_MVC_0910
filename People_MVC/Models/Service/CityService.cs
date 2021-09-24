@@ -16,9 +16,13 @@ namespace People_MVC.Models.Service
             _cityRepo = cityRepo;
         }
 
-        public City Add(CreateCityViewModel city)
+        public City Add(string cityName)
         {
-            return _cityRepo.Create(city); ;
+            CreateCityViewModel newCity = new CreateCityViewModel
+            {
+                Name = cityName
+            };
+            return _cityRepo.Create(newCity); ;
         }
 
         public CityViewModel All()

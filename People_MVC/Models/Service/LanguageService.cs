@@ -15,7 +15,7 @@ namespace People_MVC.Models.Service
             _languageRepo = languageRepo;
         }
 
-        public Language Add(CreateLanguageViewModel language)
+        public Language Add(string language)
         {
             return _languageRepo.Create(language);
         }

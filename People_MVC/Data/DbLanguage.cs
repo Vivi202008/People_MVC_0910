@@ -18,10 +18,10 @@ namespace People_MVC.Data
             _dbPeopleC = PeopleDbContext;
         }
 
-        public Language Create(CreateLanguageViewModel language)
+        public Language Create(string language)
         {
             Language newLanguage = new Language();
-            newLanguage.Name = language.Name;
+            newLanguage.Name = language;
 
             _dbPeopleC.Languages.Add(newLanguage);
             _dbPeopleC.SaveChanges();

@@ -10,6 +10,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
+            <th scope="col">LanguageId</th>
             <th scope="col">Name</th>
             <th scope="col">Action</th>
         </tr>
@@ -24,11 +25,10 @@
 
 <form class="create-form" asp-controller="Languages" asp-action="CreateLanguage" method="post">
     <div class="form-group">
-        <label class="form-text" for="LanguageName">Name:</label>
-        <input class="form-control" type="text" name="LanguageName" value="" />
+        <label class="form-text" for="Name">Name:</label>
+        <input class="form-control" type="text" name="language" value="" />
+        <button class="btn btn-primary" type="submit" name="submit" value="Create">Create</button>   
     </div>
-
-    <button class="btn btn-primary" type="submit" name="submit" value="Create" >Create</button>
 
 </form>
 

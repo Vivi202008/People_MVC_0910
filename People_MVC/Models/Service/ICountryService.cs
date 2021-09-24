@@ -9,7 +9,7 @@ namespace People_MVC.Models.Service
 {
     public interface ICountryService
     {
-        Country Add(CreateCountryViewModel country);
+        Country Add(string countryName);
 
         CountryViewModel All();
         CountryViewModel FindBy(CountryViewModel search);
