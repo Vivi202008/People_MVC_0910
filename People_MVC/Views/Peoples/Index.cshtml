@@ -1,12 +1,9 @@
 ﻿@model People_MVC.Models.ViewModel.PeopleViewModel;
-
 @{
     ViewData["Title"] = "People Index";
 }
 
 <h1>Welcome to People's table</h1>
-
-
 
 <form method="post">
     <label >Please input something to search</label>
@@ -32,6 +29,9 @@
     </thead>
 
     @foreach (var item in Model.people)
-    {@*@await Html.PartialAsync("_ShowAll", item);*@
-     <partial name="_People.cshtml" model="item" />}
+    {
+        @*@await Html.PartialAsync("_ShowAll", item);*@
+     <partial name="_People.cshtml" model="item" />
+     
+     }
 </table>

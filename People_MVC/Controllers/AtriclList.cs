@@ -62,25 +62,34 @@
 
 
 //< form class= "create-form" asp - controller = "Cities" asp - action = "CreateCity" method = "post" >
-          
+
+
 //              < div class= "form-group" >
-           
+
+
 //                   < label for= "Name" class= "form-text" > Name:</ label >
-                
+
+
 //                        < input class= "form-control" type = "text" name = "name" value = "" />
-                      
+
+
 //                          </ div >
-                      
+
+
 //                          < div class= "form-group" >
-                       
+
+
 //                               < label for= "CountryId" class= "form-text" > Country:</ label >
 //        @*< select class= "form-select" name = "CountryId" asp - items = "ViewBag.Countries" >
-    
+
+
 //            </ select > *@
 //    </ div >
 //    < div class= "form-group" >
- 
+
+
 //         < button class= "btn btn-primary" type = "submit" name = "submit" value = "Create" > Create </ button >
-       
+
+
 //           </ div >
 //       </ form >

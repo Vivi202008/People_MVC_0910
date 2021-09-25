@@ -11,10 +11,6 @@
                 <th scope="col">@Html.DisplayFor(m => Model.City.Name)</th>
                 <th scope="col">@Html.DisplayFor(m => Model.City.Country)</th>
 
-                @*@foreach (var language in @Model.PersonLanguages)
-        {
-            <p> @language.Language.Name</p>
-         }*@
                 <th scope="col">@Html.DisplayFor(m => Model.PersonLanguages)</th>
 
                 <th><a asp-action="EditPerson" asp-route-id="@Model.PersonId" class="btn btn-primary">Edit</a></th>
