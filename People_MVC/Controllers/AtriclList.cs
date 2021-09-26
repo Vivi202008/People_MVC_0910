@@ -93,3 +93,12 @@
 
 //           </ div >
 //       </ form >
+
+
+//@foreach(var item in Model.people)
+//    {
+//        @*@await Html.PartialAsync("_ShowAll", item); *@
+//     < partial name = "_People.cshtml" model = "item" />
+
+
+//     }

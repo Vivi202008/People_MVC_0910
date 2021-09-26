@@ -28,10 +28,26 @@
         </tr>
     </thead>
 
-    @foreach (var item in Model.people)
-    {
-        @*@await Html.PartialAsync("_ShowAll", item);*@
-     <partial name="_People.cshtml" model="item" />
-     
-     }
+    <tbody id="tbody">
+
+        @foreach (var asset in ViewBag.data)
+        {
+<tr>
+    <td>@asset.PId</td>
+    
+    <td>@asset.PName</td>
+    <td>@asset.Phone</td>
+    <td>@asset.CityName</td>
+    <td>@asset.CountryName</td>
+    <td>@asset.PLanguages</td>
+    
+    <td>
+        <a class="btn btn-primary" onclick="Update('@asset.PId')">编辑</a>
+        <a class="btn btn-primary" onclick="Delete('@asset.PId')">删除</a>
+    </td>
+
+
+</tr>}
+    </tbody>
+
 </table>

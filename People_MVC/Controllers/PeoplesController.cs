@@ -5,6 +5,8 @@ using People_MVC.Models;
 using People_MVC.Models.Repo;
 using People_MVC.Models.Service;
 using People_MVC.Models.ViewModel;
+using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 
 namespace People_MVC.Controllers
@@ -33,16 +35,53 @@ namespace People_MVC.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            PeopleViewModel vm = new PeopleViewModel();
-             vm.people = _context.Persons.ToList();
-            return View(vm);
-            
+            //PeopleViewModel vm = new PeopleViewModel();
+            // vm.people = _context.Persons.ToList();
+            //return View(vm);
+
             //if (InMemoryPeopleRepo.allPeopleList.Count == 0)
             //{
             //    InMemoryPeopleRepo.CreateDefaultPeoples();
             //}
             //return View(_peopleService.All());
-            
+
+
+            var query = from a in _context.Persons
+                        join b in _context.Cities on a.CityId equals b.CityId
+                        join c in _context.Countries on b.CountryId equals c.CountryId
+                        join d in _context.PersonLanguages on a.PersonId equals d.PersonId
+                        join e in _context.Languages on d.LanguageId equals e.LanguageId
+                        select new { PId = a.PersonId, PName = a.Name, Phone = a.TeleNumber, CityName = b.Name, CountryName = c.Name, PLanguages = d.Language.Name};
+
+            List < dynamic> oneList = new List<dynamic> ();
+
+
+            foreach (var record in _context.Persons)
+            {
+              int tempId = record.PersonId;
+              string tempLanguage = "";
+
+              dynamic dyObj = new ExpandoObject();
+                
+              foreach (var item in query.ToList())
+                {
+                  if (item.PId == tempId)
+                    {                    
+                    dyObj.PId = item.PId;
+                    dyObj.PName = item.PName;
+                    dyObj.Phone = item.Phone;
+                    dyObj.CityName = item.CityName;
+                    dyObj.CountryName = item.CountryName;
+                    tempLanguage = tempLanguage + " " + item.PLanguages;
+                    }
+                }
+                  
+                    dyObj.PLanguages = tempLanguage;
+                    oneList.Add(dyObj);
+               }   
+                   
+            ViewBag.data = oneList;
+            return View();
         }      
 
         [HttpPost]
