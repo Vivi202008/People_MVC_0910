@@ -17,7 +17,11 @@ namespace People_MVC.Data
             //initialization
         }
 
-          protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public PeopleDbContext()
+        {
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
              optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=PeopleDb;Trusted_Connection=True;MultipleActiveResultSets=true");
         }

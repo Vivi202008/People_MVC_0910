@@ -17,16 +17,16 @@ namespace People_MVC.Data
         {
             _dbPeopleC = peopleDbContext;
         }
-        
-        public City Create(CreateCityViewModel city)
-        {
-            City newCity = new City { Name = city.Name };
-            
-            _dbPeopleC.Cities.Add(newCity);
-            _dbPeopleC.SaveChanges();
 
-            return newCity;
-        }
+        //public City Create(CreateCityViewModel city)
+        //{
+        //    City newCity = new City { Name = city.Name, CountryId = _dbPeopleC.Countries.Last().CountryId + 1 };
+
+        //    _dbPeopleC.Cities.Add(newCity);
+        //    _dbPeopleC.SaveChanges();
+
+        //    return newCity;
+        //}
 
         public List<City> Read()
         {
@@ -72,6 +72,32 @@ namespace People_MVC.Data
                     return true;
                 }
             }
+        }
+
+        public City Create(string cityName, string countryName)
+        {
+            var query1 = _dbPeopleC.Countries.Include(m => countryName);
+            int newCountryId=0;
+                         
+            try
+            {
+                newCountryId = query1.ToList()[1].CountryId;
+            }
+            catch
+            {
+                newCountryId = _dbPeopleC.Countries.Last().CountryId +1;
+                Country newCountry = new Country { Name = countryName, CountryId = newCountryId };
+                _dbPeopleC.Countries.Add(newCountry);
+            }
+
+            City newCity = new City { Name = cityName, CountryId=newCountryId };
+
+            _dbPeopleC.Cities.Add(newCity);
+            _dbPeopleC.SaveChanges();
+
+            return newCity;
+
+
         }
     }
 }

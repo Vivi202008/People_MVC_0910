@@ -3,26 +3,31 @@ using People_MVC.Models.Repo;
 using People_MVC.Models.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace People_MVC.Models.Service
 {
     public class PeopleService : IPeopleService
     {
         IPeopleRepo _peopleRepo ;
-        InMemoryPeopleRepo PeopleData = new InMemoryPeopleRepo();
+        PeopleDbContext _peopleDb;
+        //InMemoryPeopleRepo PeopleData = new InMemoryPeopleRepo();
         public static List<Person> _peopleList = new List<Person>();
 
         //Constructor Injection--Fetching IPeopleRepo Object from Startup ConfigureServices
 
-        public PeopleService(IPeopleRepo peopleRepo)
+        public PeopleService(IPeopleRepo peopleRepo, PeopleDbContext peopleDb)
         {
             _peopleRepo = peopleRepo;
+            _peopleDb = peopleDb;
         }
 
         public PeopleService()
         {
+            this._peopleDb = new PeopleDbContext();
         }
 
         public Person Add(CreatePersonViewModel person)
@@ -39,8 +44,11 @@ namespace People_MVC.Models.Service
 
         public PeopleViewModel All()
         {
-            PeopleViewModel indexViewModel = new PeopleViewModel();
-            indexViewModel.people = PeopleData.Read();
+
+            PeopleViewModel indexViewModel = new PeopleViewModel
+            {
+                people = _peopleDb.Persons.ToList()
+            };
             return indexViewModel;
         }
 
@@ -71,6 +79,32 @@ namespace People_MVC.Models.Service
         public PersonLanguage AddToPerson(int LanguageID, int PersonID)
         {
             return _peopleRepo.AddToPerson(LanguageID, PersonID);
+        }
+
+        public string GetCountryName(int cityId)
+        {
+            var query = from a in _peopleDb.Persons
+                        join b in _peopleDb.Cities on a.CityId equals b.CityId
+                        join c in _peopleDb.Countries on b.CountryId equals c.CountryId
+                        where a.CityId==cityId
+                        select c.Name;
+
+            return query.ToString();
+        }
+
+        public string GetPersonLanguage(int personId)
+        {
+            var query = from a in _peopleDb.Persons
+                        join d in _peopleDb.PersonLanguages on a.PersonId equals d.PersonId
+                        join e in _peopleDb.Languages on d.LanguageId equals e.LanguageId
+                        where a.PersonId == personId
+                        select new { PLanguage = d.Language.Name };
+            string PLanguages = "";
+            foreach(var item in query.ToList())
+            {
+                PLanguages = PLanguages + "  " + item.PLanguage;
+            }
+            return PLanguages;
         }
     }
 }

@@ -1,13 +1,18 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using People_MVC.Data;
 using People_MVC.Models;
 using People_MVC.Models.Repo;
 using People_MVC.Models.Service;
 using People_MVC.Models.ViewModel;
+using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
+using System.Web.Mvc.Html;
+using System.Web.WebPages.Html;
+using SelectListItem = Microsoft.AspNetCore.Mvc.Rendering.SelectListItem;
 
 namespace People_MVC.Controllers
 {
@@ -51,7 +56,8 @@ namespace People_MVC.Controllers
                         join c in _context.Countries on b.CountryId equals c.CountryId
                         join d in _context.PersonLanguages on a.PersonId equals d.PersonId
                         join e in _context.Languages on d.LanguageId equals e.LanguageId
-                        select new { PId = a.PersonId, PName = a.Name, Phone = a.TeleNumber, CityName = b.Name, CountryName = c.Name, PLanguages = d.Language.Name};
+
+                        select new { PId = a.PersonId, PName = a.Name, Phone = a.TeleNumber, CityName = b.Name, CountryName = c.Name, PLanguage = d.Language.Name};
 
             List < dynamic> oneList = new List<dynamic> ();
 
@@ -72,7 +78,7 @@ namespace People_MVC.Controllers
                     dyObj.Phone = item.Phone;
                     dyObj.CityName = item.CityName;
                     dyObj.CountryName = item.CountryName;
-                    tempLanguage = tempLanguage + " " + item.PLanguages;
+                    tempLanguage = tempLanguage + " " + item.PLanguage;
                     }
                 }
                   
@@ -81,8 +87,29 @@ namespace People_MVC.Controllers
                }   
                    
             ViewBag.data = oneList;
+
+            //*System.NullReferenceException: 'Object reference not set to an instance of an object.'
+
+            /*var cityList = _cityService.All().Cities.ToList();
+            
+            var selectItemList = new List<SelectListItem>() {
+                new SelectListItem(){Value="1",Text="other",Selected=true}
+            };
+            var selectList = new SelectList(cityList, "CityListId","CityListName");
+            selectItemList.AddRange(selectList);
+            ViewBag.Cities = selectItemList; */
+
+            ViewBag.Cities =  new SelectList(_cityService.All().Cities, "Id", "Name");
+            ViewBag.Languages = new SelectList(_languageService.All().Languages, "LanguageId", "Name");
+
             return View();
-        }      
+        }
+
+        public class CityList
+        {
+            public int CityListId { get; set; }
+            public string CityListName { get; set; }
+        }
 
         [HttpPost]
         public IActionResult Index(PeopleViewModel peopleViewModel)
@@ -112,14 +139,36 @@ namespace People_MVC.Controllers
         [HttpPost]
         public IActionResult SearchSth(string search)
         {
-            var _peoples = from u in _context.Persons
-                           where u.Name.Contains(search)
-                           select u;
+            //var _peoples = from u in _context.Persons
+            //               where u.Name.Contains(search)
+            //               select u;
 
-            _peoples = _context.Persons.Where(u => u.Name == search);
+            //_peoples = _context.Persons.Where(u => u.Name == search);
 
-            return PartialView(_peoples);
-         
+            List<dynamic> resultList = new List<dynamic>();
+            foreach (var item in ViewBag.data)
+            {
+                dynamic dySearchObj = new ExpandoObject();
+                if (item.PName.Contains(search)
+                    ||item.Phone.Contains(search) 
+                    || item.CityName.Contains(search) 
+                    || item.CountryName.Contains(search) 
+                    || item.PLanguages.Contains(search))
+                {
+                    dySearchObj.PId = item.PId;
+                    dySearchObj.PName = item.PName;
+                    dySearchObj.Phone = item.Phone;
+                    dySearchObj.CityName = item.CityName;
+                    dySearchObj.CountryName = item.CountryName;
+                    dySearchObj.PLanguages = item.PLanguage;
+                    
+                    resultList.Add(dySearchObj);
+                }
+
+                 ViewBag.SearchData = resultList;
+            } 
+        
+            return PartialView("_SearchSth");       
         }
 
         [HttpGet]

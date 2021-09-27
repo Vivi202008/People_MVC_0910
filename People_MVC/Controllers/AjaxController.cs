@@ -4,6 +4,10 @@ using People_MVC.Models;
 using People_MVC.Models.Repo;
 using People_MVC.Models.Service;
 using People_MVC.Models.ViewModel;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Linq;
+using Microsoft.AspNetCore.Http;
 
 
 namespace People_MVC.Controllers
@@ -15,15 +19,19 @@ namespace People_MVC.Controllers
         readonly PeopleDbContext _context;
         PeopleService peopleService = new PeopleService();
 
+        public static List<Person> _peopleList = new List<Person>();
+
         public AjaxController(IPeopleService peopleService, IPeopleRepo peopleRepo, PeopleDbContext context)
         {
+            
             _peopleService = peopleService;
             _peopleRepo = peopleRepo;
             _context = context;
-
+            
+           
         }
 
-        [HttpGet]
+       [HttpGet]
         public IActionResult ShowAll()
         {
             return PartialView("_ShowAll", _peopleService.All());
@@ -47,8 +55,21 @@ namespace People_MVC.Controllers
         //Get
         public IActionResult Management()
         {
+            List<dynamic> oneList = new List<dynamic>();
+            foreach (var item in _context.Persons)
+            {
+                dynamic dyObj = new ExpandoObject();
+                dyObj.PId = item.PersonId;
+                dyObj.CountryName = peopleService.GetCountryName(item.CityId);
+                dyObj.PLanguage = peopleService.GetPersonLanguage(item.PersonId);
+
+                oneList.Add(dyObj);
+            }
+
+            ViewBag.data = oneList;
             return View();
         }
+
 
         [HttpPost]
         public IActionResult PersonDetails(int ID)

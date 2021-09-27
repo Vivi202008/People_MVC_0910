@@ -8,7 +8,7 @@ namespace People_MVC.Models.Service
 {
     public interface ICityService
     {
-        public City Add(string cityName);
+        public City Create(string cityName, string countryName);
 
         public CityViewModel All();
         public City FindBy(int id);

@@ -43,11 +43,11 @@ namespace PeopleMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateCity(string cityName)
+        public IActionResult CreateCity(string cityName, string countryName)
         {
             if (ModelState.IsValid)
             {
-                _service.Add(cityName);
+                _service.Create(cityName,countryName);
 
             }
 

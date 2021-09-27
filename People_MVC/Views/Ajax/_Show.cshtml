@@ -6,9 +6,9 @@
 
 <table class="table table-striped">
     <thead>
-        @{ People_MVC.Models.Person p = null;}
+
         <tr>
-                <th scope="col">PersonId</th>
+            <th scope="col">PersonId</th>
             <th scope="col">Name</th>
             <th scope="col">TeleNumber</th>
             <th scope="col">City</th>
@@ -16,12 +16,13 @@
             <th scope="col">PersonLanguages</th>
             <th scope="col">Action</th>
         </tr>
-
     </thead>
-    <tbody>
 
+    <tbody>
         @foreach (var item in Model.people)
         {
-            <partial name="_ShowAll" model="item" />            }
+            <partial name="_ShowAll" model="item" /> 
+        }
     </tbody>
+
 </table>
