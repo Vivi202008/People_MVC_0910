@@ -14,7 +14,7 @@ using People_MVC.Models.Service;
 using People_MVC.Models.Repo;
 using People_MVC.Data;
 using People_MVC.Models;
-
+using Microsoft.AspNetCore.Identity;
 
 namespace People_MVC
 {
@@ -31,11 +31,14 @@ namespace People_MVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddRazorPages();
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddDefaultTokenProviders()
+                .AddDefaultUI()
+                .AddEntityFrameworkStores<PeopleDbContext>();
+
             services.AddScoped<IPeopleService, PeopleService>();
             services.AddScoped<IPeopleRepo,DbPeople>();
-
-            services.AddScoped<IPeopleRepo, DbPeople>();
-            services.AddScoped<IPeopleService, PeopleService>();
 
             services.AddScoped<ICityRepo, DbCity>();
             services.AddScoped<ICityService, CityService>();
@@ -73,7 +76,7 @@ namespace People_MVC
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -81,6 +84,7 @@ namespace People_MVC
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

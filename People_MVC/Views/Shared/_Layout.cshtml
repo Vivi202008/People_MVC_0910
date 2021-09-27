@@ -19,29 +19,32 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarColor01">
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Ajax" asp-action="Management">Management</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Peoples" asp-action="Index">People</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Languages" asp-action="Index">Languages</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Countries" asp-action="Index">Countries</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Cities" asp-action="Index">Cities</a>
-                        </li>
+                        <partial name="_LoginPartial" />                  
 
                     </ul>
                     <form class="d-flex">
-                        <button class="btn btn-success my-2 my-sm-0" type="submit" asp-controller="Peoples" asp-action="Login.">Login</button>
-                        <button class="btn btn-primary my-2 my-sm-0" type="submit" asp-controller="Peoples" asp-action="Login">Register</button>
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Ajax" asp-action="Management">Management</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Peoples" asp-action="Index">People</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Languages" asp-action="Index">Languages</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Countries" asp-action="Index">Countries</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Cities" asp-action="Index">Cities</a>
+                            </li>
+                        </ul>
+                        @*<button class="btn btn-success my-2 my-sm-0" type="submit" asp-controller="Peoples" asp-action="Login.">Login</button>
+                        <button class="btn btn-primary my-2 my-sm-0" type="submit" asp-controller="Peoples" asp-action="Login">Register</button>*@
                     </form>
                 </div>
             </div>

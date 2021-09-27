@@ -5,12 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using People_MVC.Models.ViewModel;
 using People_MVC.Models;
-
-
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace People_MVC.Data
 {
-    public class PeopleDbContext:DbContext
+    public class PeopleDbContext : IdentityDbContext
     {
         public PeopleDbContext(DbContextOptions<PeopleDbContext> options) : base(options)
         {   
@@ -30,7 +29,8 @@ namespace People_MVC.Data
         public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Language> Languages { get; set; }
-        public DbSet<PersonLanguage> PersonLanguages { get; set; } 
+        public DbSet<PersonLanguage> PersonLanguages { get; set; }
+        public DbSet<ApplicationUser>Users{ get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
