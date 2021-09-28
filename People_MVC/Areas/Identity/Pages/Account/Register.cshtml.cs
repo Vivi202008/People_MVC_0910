@@ -11,8 +11,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using People_MVC.Data;
 using People_MVC.Models;
 
 namespace People_MVC.Areas.Identity.Pages.Account
@@ -20,6 +22,7 @@ namespace People_MVC.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
+        private readonly PeopleDbContext _context;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
@@ -29,12 +32,14 @@ namespace People_MVC.Areas.Identity.Pages.Account
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            PeopleDbContext Context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = Context;
         }
 
         [BindProperty]
@@ -66,6 +71,10 @@ namespace People_MVC.Areas.Identity.Pages.Account
             public string City { get; set; }
 
             [Required]
+            [Display(Name = "Country")]
+            public string Country { get; set; }
+
+            [Required]
             [Range(1, 150)]
             [Display(Name = "Age")]
             public int Age { get; set; }
@@ -84,6 +93,8 @@ namespace People_MVC.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            ViewData["Cities"] = new SelectList(_context.Cities, "Name", "Name");
+            ViewData["Countries"] = new SelectList(_context.Countries, "Name", "Name");
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -94,10 +105,20 @@ namespace People_MVC.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    FirstName = Input.FirstName,
+                    Age = Input.Age,
+                    LastName = Input.LastName,
+                    City = Input.City,
+                    Country=Input.Country
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, "User");
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

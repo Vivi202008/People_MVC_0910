@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using People_MVC.Models;
 using People_MVC.Models.Service;
@@ -10,7 +11,8 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace PeopleMVC.Controllers
-{
+{      
+    [Authorize(Roles = "Admin")]
     public class CitiesController : Controller
     {
         private readonly ICityService _service;

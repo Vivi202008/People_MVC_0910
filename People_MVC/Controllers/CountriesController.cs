@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using People_MVC.Models;
 using People_MVC.Models.Service;
 using People_MVC.Models.ViewModel;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace PeopleMVC.Controllers
 {
+    [Authorize(Roles="Admin")]
     public class CountriesController : Controller
     {
         private readonly ICountryService _counrryService;

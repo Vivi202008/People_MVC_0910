@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 using System;
 using ILanguageService = People_MVC.Models.Service.ILanguageService;
 
 namespace PeopleMVC.Controllers
 {
+         [Authorize(Roles = "Admin")] 
     public class LanguagesController : Controller
     {
         private readonly ILanguageService _service;
