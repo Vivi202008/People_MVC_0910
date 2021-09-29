@@ -139,12 +139,6 @@ namespace People_MVC.Controllers
         [HttpPost]
         public IActionResult SearchSth(string search)
         {
-            //var _peoples = from u in _context.Persons
-            //               where u.Name.Contains(search)
-            //               select u;
-
-            //_peoples = _context.Persons.Where(u => u.Name == search);
-
             List<dynamic> resultList = new List<dynamic>();
             foreach (var item in ViewBag.data)
             {
