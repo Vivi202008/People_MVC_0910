@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using People_MVC.Models.ViewModel;
 using People_MVC.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace People_MVC.Data
 {
@@ -30,7 +31,7 @@ namespace People_MVC.Data
         public DbSet<Country> Countries { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<PersonLanguage> PersonLanguages { get; set; }
-        public DbSet<ApplicationUser>Users{ get; set; }
+        //public DbSet<ApplicationUser>Users{ get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -64,8 +65,56 @@ namespace People_MVC.Data
 
             modelBuilder.Entity<PersonLanguage>()
                 .HasOne<Language>(ci => ci.Language)
-                .WithMany(i => i.PersonLanguages)
-                .HasForeignKey(ci => ci.LanguageId);
+                .WithMany(i => i.PersonLanguages);
+
+           IdentityRole roleAdmin = new IdentityRole()
+            {
+                Id = "438db5c8-0513-43a0-a84c-cd416c4e3a54",
+                Name = "Admin",
+                NormalizedName = "ADMIN"
+            };
+            IdentityRole roleUser = new IdentityRole()
+            {
+                Id = "0948bea6-fb82-49c9-8cd8-fec213fe8e8a",
+                Name = "User",
+                NormalizedName = "USER"
+            };
+
+            modelBuilder.Entity<IdentityRole>().HasData(
+              roleAdmin, roleUser);
+
+
+            PasswordHasher<ApplicationUser> passwordHasher = new PasswordHasher<ApplicationUser>();
+
+            ApplicationUser admin = new ApplicationUser
+            {
+                Id = "1",
+                UserName = "admin",
+                NormalizedUserName = "ADMIN",
+                Birthday = DateTime.Now,
+                FirstName = "Joe",
+                LastName = "Jonasson",
+                Email = "admin@admin.com"
+            };
+
+            admin.PasswordHash = passwordHasher.HashPassword(admin, "admin");
+
+            modelBuilder.Entity<ApplicationUser>().HasData(
+                admin
+            );
+
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(
+                new IdentityUserRole<string>
+                {
+                    RoleId = roleAdmin.Id,
+                    UserId = admin.Id
+                } ,
+                new IdentityUserRole<string>
+                {
+                    RoleId = roleUser.Id,
+                    UserId = admin.Id
+                }
+            );
         }
     }
 }

@@ -27,7 +27,7 @@ namespace People_MVC.Models.Service
 
         public PeopleService()
         {
-            this._peopleDb = new PeopleDbContext();
+            _peopleDb = new PeopleDbContext();
         }
 
         public Person Add(CreatePersonViewModel person)

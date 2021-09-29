@@ -9,6 +9,7 @@ namespace People_MVC.Models
 {
     public class ApplicationUser : IdentityUser
     {
+        
 
         [Required]
         [MaxLength(50)]
@@ -21,10 +22,12 @@ namespace People_MVC.Models
 
         [Range(1, 150)]
         [Required]
-        public int Age { get; set; }
+        public DateTime Birthday{ get; set; }
 
-        public string City { get; set; }
-        public string Country { get; set; }
+        //public int Age { get; set; }
+
+        //public string City { get; set; }
+        //public string Country { get; set; }
 
     }
 }

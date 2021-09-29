@@ -10,8 +10,8 @@ using People_MVC.Data;
 namespace People_MVC.Migrations
 {
     [DbContext(typeof(PeopleDbContext))]
-    [Migration("20210928082411_Creat")]
-    partial class Creat
+    [Migration("20210928193836_Create")]
+    partial class Create
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,6 +46,22 @@ namespace People_MVC.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "438db5c8-0513-43a0-a84c-cd416c4e3a54",
+                            ConcurrencyStamp = "b89e015c-e86b-4824-9d7c-77e719c0ae38",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "0948bea6-fb82-49c9-8cd8-fec213fe8e8a",
+                            ConcurrencyStamp = "144ef629-bc63-48ce-a398-9a95f3af3c7b",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -202,6 +218,18 @@ namespace People_MVC.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "1",
+                            RoleId = "438db5c8-0513-43a0-a84c-cd416c4e3a54"
+                        },
+                        new
+                        {
+                            UserId = "1",
+                            RoleId = "0948bea6-fb82-49c9-8cd8-fec213fe8e8a"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -346,43 +374,6 @@ namespace People_MVC.Migrations
                     b.HasKey("LanguageId");
 
                     b.ToTable("Languages");
-
-                    b.HasData(
-                        new
-                        {
-                            LanguageId = 1,
-                            Name = "Other"
-                        },
-                        new
-                        {
-                            LanguageId = 2,
-                            Name = "German"
-                        },
-                        new
-                        {
-                            LanguageId = 3,
-                            Name = "Italian"
-                        },
-                        new
-                        {
-                            LanguageId = 4,
-                            Name = "English"
-                        },
-                        new
-                        {
-                            LanguageId = 5,
-                            Name = "Spanish"
-                        },
-                        new
-                        {
-                            LanguageId = 6,
-                            Name = "Chinese"
-                        },
-                        new
-                        {
-                            LanguageId = 7,
-                            Name = "Swedish"
-                        });
                 });
 
             modelBuilder.Entity("People_MVC.Models.Person", b =>
@@ -552,14 +543,8 @@ namespace People_MVC.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -572,6 +557,26 @@ namespace People_MVC.Migrations
                         .HasMaxLength(50);
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "e6a017d0-1ea5-4635-84c6-823f238c775f",
+                            Email = "admin@admin.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKfVI0CQkOk0R+SkaDAyuWrOJGeZEnYv1wMHi1kFtM7m5zXFjSNyH9UAvTSTh36vbg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "1b4dc4fb-67ac-4204-a3c4-b9ae2a602df5",
+                            TwoFactorEnabled = false,
+                            UserName = "admin",
+                            Birthday = new DateTime(2021, 9, 28, 21, 38, 36, 585, DateTimeKind.Local).AddTicks(3477),
+                            FirstName = "Joe",
+                            LastName = "Jonasson"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

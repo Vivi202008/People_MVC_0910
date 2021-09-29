@@ -6,7 +6,7 @@ namespace People_MVC.Models
     {
         [Key]
         //public int ID { get; set; }
-        //public int PLanguageId { get; set; }
+        public int PLanguageId { get; set; }
 
         public int PersonId { get; set; }
         public Person Person { get; set; }

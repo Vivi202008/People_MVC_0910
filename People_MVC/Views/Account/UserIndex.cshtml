@@ -1,0 +1,27 @@
+﻿
+@model People_MVC.Models.ViewModel.UserViewModel;
+@section scripts {
+    <script type="text/javascript" src="~/jquery/jquery.js"></script>
+    <script type="text/javascript" src="~/js/UserScript.js"></script>
+}
+@{
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Birthday</th>
+            <th scope="col">Email</th>
+            <th scope="col">Name</th>
+            <th scope="col">Id</th>
+            <th scope="col">Roles</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (UserViewModel user in @Model.Users)
+        {
+            <partial name="User" model="@user" />
+        }
+    </tbody>
+</table>

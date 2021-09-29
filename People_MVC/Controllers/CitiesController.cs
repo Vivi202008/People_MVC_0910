@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PeopleMVC.Controllers
+namespace People_MVC.Controllers
 {      
     [Authorize(Roles = "Admin")]
     public class CitiesController : Controller

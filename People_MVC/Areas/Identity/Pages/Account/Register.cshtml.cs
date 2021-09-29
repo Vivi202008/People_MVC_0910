@@ -66,18 +66,22 @@ namespace People_MVC.Areas.Identity.Pages.Account
             [Display(Name = "Last name")]
             public string LastName { get; set; }
 
-            [Required]
-            [Display(Name = "City")]
-            public string City { get; set; }
+            //[Required]
+            //[Display(Name = "City")]
+            //public string City { get; set; }
+
+            //[Required]
+            //[Display(Name = "Country")]
+            //public string Country { get; set; }
+
+            //[Required]
+            //[Range(1, 150)]
+            //[Display(Name = "Age")]
+            //public int Age { get; set; }
 
             [Required]
-            [Display(Name = "Country")]
-            public string Country { get; set; }
-
-            [Required]
-            [Range(1, 150)]
-            [Display(Name = "Age")]
-            public int Age { get; set; }
+            [Display(Name = "Birthday")]
+            public DateTime Birthday { get; set; }
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
@@ -110,10 +114,11 @@ namespace People_MVC.Areas.Identity.Pages.Account
                     UserName = Input.Email,
                     Email = Input.Email,
                     FirstName = Input.FirstName,
-                    Age = Input.Age,
+                    //Age = Input.Age,
                     LastName = Input.LastName,
-                    City = Input.City,
-                    Country=Input.Country
+                    //City = Input.City,
+                    //Country=Input.Country
+                    Birthday=Input.Birthday
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace People_MVC.Migrations
 {
-    public partial class Creat : Migration
+    public partial class Create : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -43,9 +43,7 @@ namespace People_MVC.Migrations
                     Discriminator = table.Column<string>(nullable: false),
                     FirstName = table.Column<string>(maxLength: 50, nullable: true),
                     LastName = table.Column<string>(maxLength: 50, nullable: true),
-                    Age = table.Column<int>(nullable: true),
-                    City = table.Column<string>(nullable: true),
-                    Country = table.Column<string>(nullable: true)
+                    Birthday = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -250,6 +248,20 @@ namespace People_MVC.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "438db5c8-0513-43a0-a84c-cd416c4e3a54", "b89e015c-e86b-4824-9d7c-77e719c0ae38", "Admin", "ADMIN" },
+                    { "0948bea6-fb82-49c9-8cd8-fec213fe8e8a", "144ef629-bc63-48ce-a398-9a95f3af3c7b", "User", "USER" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "Birthday", "FirstName", "LastName" },
+                values: new object[] { "1", 0, "e6a017d0-1ea5-4635-84c6-823f238c775f", "ApplicationUser", "admin@admin.com", false, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEKfVI0CQkOk0R+SkaDAyuWrOJGeZEnYv1wMHi1kFtM7m5zXFjSNyH9UAvTSTh36vbg==", null, false, "1b4dc4fb-67ac-4204-a3c4-b9ae2a602df5", false, "admin", new DateTime(2021, 9, 28, 21, 38, 36, 585, DateTimeKind.Local).AddTicks(3477), "Joe", "Jonasson" });
+
+            migrationBuilder.InsertData(
                 table: "Countries",
                 columns: new[] { "CountryId", "Name" },
                 values: new object[,]
@@ -262,17 +274,12 @@ namespace People_MVC.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Languages",
-                columns: new[] { "LanguageId", "Name" },
+                table: "AspNetUserRoles",
+                columns: new[] { "UserId", "RoleId" },
                 values: new object[,]
                 {
-                    { 1, "Other" },
-                    { 2, "German" },
-                    { 3, "Italian" },
-                    { 4, "English" },
-                    { 5, "Spanish" },
-                    { 6, "Chinese" },
-                    { 7, "Swedish" }
+                    { "1", "438db5c8-0513-43a0-a84c-cd416c4e3a54" },
+                    { "1", "0948bea6-fb82-49c9-8cd8-fec213fe8e8a" }
                 });
 
             migrationBuilder.InsertData(

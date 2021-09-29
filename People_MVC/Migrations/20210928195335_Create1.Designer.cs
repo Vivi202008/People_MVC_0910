@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using People_MVC.Data;
 
 namespace People_MVC.Migrations
 {
     [DbContext(typeof(PeopleDbContext))]
-    partial class PeopleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210928195335_Create1")]
+    partial class Create1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,14 +51,14 @@ namespace People_MVC.Migrations
                         new
                         {
                             Id = "438db5c8-0513-43a0-a84c-cd416c4e3a54",
-                            ConcurrencyStamp = "db67c671-8c0c-4937-b772-e19fcd76fa8a",
+                            ConcurrencyStamp = "e1bcfd26-3896-4e3e-b00e-9b887479ad57",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "0948bea6-fb82-49c9-8cd8-fec213fe8e8a",
-                            ConcurrencyStamp = "c94dd077-1bf9-4622-931a-f40bcbf8ddc3",
+                            ConcurrencyStamp = "edb15fb7-c8fe-448c-9b66-b908f785712d",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -614,17 +616,17 @@ namespace People_MVC.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e7ce3d76-b5fd-48ed-94b2-d9381fc566a7",
+                            ConcurrencyStamp = "43a33cf6-c8b2-4538-8c78-09b4a0e3a63b",
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGc/7RIfB1NyRshWS4mdruE20MSwGX3SqhtguvYrcEObG15+dHqJgNa11bukTIJ+Ug==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEF6LhHLrcLaKHb70tmAJTmJI7j/wOcSYfCnMbDC3hmUawCIjto130odD4DYIhWVUeQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "45d1b1f7-0d28-493e-b762-9fd5e69ab547",
+                            SecurityStamp = "c5157235-fc75-4942-ac49-f7e62aa36ed2",
                             TwoFactorEnabled = false,
                             UserName = "admin",
-                            Birthday = new DateTime(2021, 9, 29, 9, 40, 48, 565, DateTimeKind.Local).AddTicks(3858),
+                            Birthday = new DateTime(2021, 9, 28, 21, 53, 34, 589, DateTimeKind.Local).AddTicks(9382),
                             FirstName = "Joe",
                             LastName = "Jonasson"
                         });
