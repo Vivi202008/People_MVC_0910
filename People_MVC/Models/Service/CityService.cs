@@ -52,9 +52,12 @@ namespace People_MVC.Models.Service
             }
             if (newCountryId == 0)
             {
-                 newCountryId = _dbPeopleC.Countries.ToList().Last().CountryId + 1;
+                 
                  Country newCountry = new Country { Name = countryName};
                 _dbPeopleC.Countries.Add(newCountry);
+                _dbPeopleC.SaveChanges();
+                newCountryId = _dbPeopleC.Countries.ToList().Last().CountryId;
+
             }
                               
             City newCity = new City { Name = cityName, CountryId = newCountryId };
