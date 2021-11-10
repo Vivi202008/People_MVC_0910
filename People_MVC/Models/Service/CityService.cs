@@ -41,20 +41,22 @@ namespace People_MVC.Models.Service
 
         public City Create(string cityName, string countryName)
         {
-            var query1 = _dbPeopleC.Countries.Include(m => countryName);
             int newCountryId=0;
-
-            try
+           
+            foreach(var c in _dbPeopleC.Countries)
             {
-                newCountryId = query1.ToList()[1].CountryId;
+                if (c.Name == countryName)
+                {
+                    newCountryId = c.CountryId;
+                }
             }
-            catch
+            if (newCountryId == 0)
             {
-                newCountryId = _dbPeopleC.Countries.LastOrDefault().CountryId + 1;          
-                Country newCountry = new Country { Name = countryName, CountryId = newCountryId };
+                 newCountryId = _dbPeopleC.Countries.ToList().Last().CountryId + 1;
+                 Country newCountry = new Country { Name = countryName};
                 _dbPeopleC.Countries.Add(newCountry);
             }
-                   
+                              
             City newCity = new City { Name = cityName, CountryId = newCountryId };
 
             _dbPeopleC.Cities.Add(newCity);
