@@ -57,8 +57,6 @@ namespace People_MVC.Models.Service
             return _peopleRepo.Read(id);
         }
 
-
-
         public bool Remove(int id)
         {
             Person person = FindBy(id);
@@ -81,15 +79,25 @@ namespace People_MVC.Models.Service
             return _peopleRepo.AddToPerson(LanguageID, PersonID);
         }
 
-        public string GetCountryName(int cityId)
+        public string GetCityName(int personId)
+        {
+            var query = from a in _peopleDb.Persons
+                        join b in _peopleDb.Cities on a.CityId equals b.CityId
+                        where a.PersonId == personId
+                        select b.Name;
+            string name = query.ToList().FirstOrDefault().ToString();
+            return name;
+        }
+
+        public string GetCountryName(int personId)
         {
             var query = from a in _peopleDb.Persons
                         join b in _peopleDb.Cities on a.CityId equals b.CityId
                         join c in _peopleDb.Countries on b.CountryId equals c.CountryId
-                        where a.CityId==cityId
+                        where a.PersonId == personId
                         select c.Name;
-
-            return query.ToString();
+            string name = query.ToList().FirstOrDefault().ToString();
+            return name;
         }
 
         public string GetPersonLanguage(int personId)

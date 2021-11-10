@@ -18,17 +18,7 @@ namespace People_MVC.Data
             _dbPeopleC = peopleDbContext;
         }
 
-        //public City Create(CreateCityViewModel city)
-        //{
-        //    City newCity = new City { Name = city.Name, CountryId = _dbPeopleC.Countries.Last().CountryId + 1 };
-
-        //    _dbPeopleC.Cities.Add(newCity);
-        //    _dbPeopleC.SaveChanges();
-
-        //    return newCity;
-        //}
-
-        public List<City> Read()
+         public List<City> Read()
         {
             var query = _dbPeopleC.Cities.Include(c => c.Country);
             return query.ToList();

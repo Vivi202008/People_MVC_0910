@@ -3,12 +3,12 @@
     ViewData["Title"] = "People Index";
 }
 
-<h1>Welcome to People's table</h1>
+<h2>Welcome to People's table</h2>
 
-<form method="post">
-    <label >Please input something to search</label>
-    <input id="searchsth"/>
-    <button type="submit" asp-controller="Peoples" asp-action="SearchSth"> Search</button>
+<form method="post" style="margin: 20px auto">
+    <label style="font-size:20px" class="col-4">Please input something to search</label>
+    <input id="searchsth" class="col-4" type="text" name="search" value="" />
+    <button type="submit" class="col-2" asp-controller="Peoples" asp-action="SearchSth"> Search</button>
 </form>
 
 <form>
@@ -32,19 +32,20 @@
 
         @foreach (var asset in ViewBag.data)
         {
-        <tr>
-            <td>@asset.PId</td>    
-            <td>@asset.PName</td>
-            <td>@asset.Phone</td>
-            <td>@asset.CityName</td>
-            <td>@asset.CountryName</td>
-            <td>@asset.PLanguages</td>
-    
-            <td>
-                <a class="btn btn-primary" onclick="Update('@asset.PId')">Edit</a>
-                 <a class="btn btn-primary" onclick="Delete('@asset.PId')">Delete</a>
-             </td>
-         </tr>}
+            <tr>
+                <td>@asset.PId</td>
+                <td>@asset.PName</td>
+                <td>@asset.Phone</td>
+                <td>@asset.CityName</td>
+                <td>@asset.CountryName</td>
+                <td>@asset.PLanguages</td>
+
+                <td>
+                    <a class="btn btn-primary" onclick="Update('@asset.PId')">Edit</a>
+                    <a class="btn btn-primary" onclick="Delete('@asset.PId')">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 
 </table>

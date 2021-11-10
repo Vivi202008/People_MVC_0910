@@ -19,6 +19,7 @@ namespace People_MVC.Models.Service
         //Person Edit(int id, Person person);
         PersonLanguage AddToPerson(int LanguageID, int PersonID);
 
+        string GetCityName(int cityId);
         string GetCountryName(int cityId);
         string GetPersonLanguage(int personId);
     }
