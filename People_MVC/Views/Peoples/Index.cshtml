@@ -41,8 +41,8 @@
                 <td>@asset.PLanguages</td>
 
                 <td>
-                    <a class="btn btn-primary" onclick="Update('@asset.PId')">Edit</a>
-                    <a class="btn btn-primary" onclick="Delete('@asset.PId')">Delete</a>
+                    <a class="btn btn-primary" asp-controller="Peoples" asp-action="EditPerson" asp-route-id="@asset.PId">Edit</a>
+                    <a class="btn btn-primary" asp-controller="Peoples" asp-action="DeletePerson" asp-route-id="@asset.PId">Delete</a>
                 </td>
             </tr>
         }

@@ -10,19 +10,19 @@
     <label asp-for="Search">Please input an ID to search</label>
     <input asp-for="Search" id="searchID" />
 
-    <input type="button"  asp-controller="Ajax" asp-action="PersonDetails" data-target="dvShow" value="Display" class="btn btn-primary" id="btnDisplay" />
-    <input type="button" asp-controller="Ajax" asp-action="Delete" data-target="dvShow" value="Delete"  class="btn btn-success" id="btnDelete" />
+    <input type="button" asp-controller="Ajax" asp-action="PersonDetails" data-target="dvShow" value="Display" class="btn btn-secondary" id="btnDisplay" />
+    <input type="button" asp-controller="Ajax" asp-action="Delete" data-target="dvShow" value="Delete" class="btn btn-success" id="btnDelete" />
     <input type="button" asp-controller="Ajax" asp-action="ShowAll" data-target="dvShow" value="DisplayAll" id="btnDisplayAll" class="btn btn-secondary" />
 </form>
 
 <div class="row">
     <div class="col-md-8 col-lg-offset-3">
-        <h2 hidden>People's record</h2>
+        <h2>People's record</h2>
     </div>
 
 </div>
 <div id="dvShow">
-    <h1>Result</h1>
+    
 </div>
 
 <style>
@@ -46,15 +46,13 @@
         var id = $("#searchID").val();
         $('#dvShow').load("/Ajax/PersonDetails", { ID: id });
     });
-
     $("#btnDelete").click(function (e) {
         e.preventDefault();
         var_this = $(this);
         $('#dvShow').text("Delete By ID");
-
-          var id = $("#searchID").val();
+        var id = $("#searchID").val();
         $('#dvShow').load("/Ajax/Delete", { ID: id });
-        alert(id+" has deleted.");
+        alert(id + " has deleted.");
     });
     $("#btnDisplayAll").click(function (e) {
         e.preventDefault();

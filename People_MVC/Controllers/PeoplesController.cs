@@ -22,16 +22,18 @@ namespace People_MVC.Controllers
         readonly IPeopleRepo _peopleRepo;
         readonly PeopleDbContext _context;
         private readonly ICityService _cityService;
+        private readonly ICountryService _countryService;
         private readonly ILanguageService _languageService;
         private readonly IPersonLanguageRepo _personLanguageRepo;
 
 
-        public PeoplesController(IPeopleService peopleService, IPeopleRepo peopleRepo, PeopleDbContext context, ICityService cityService, ILanguageService languageService, IPersonLanguageRepo personLanguageRepo)
+        public PeoplesController(IPeopleService peopleService, IPeopleRepo peopleRepo, PeopleDbContext context, ICityService cityService, ICountryService countryService, ILanguageService languageService, IPersonLanguageRepo personLanguageRepo)
         {
             _peopleService = peopleService;
             _peopleRepo = peopleRepo;
             _context = context;
             _cityService = cityService;
+            _countryService = countryService;
             _languageService = languageService;
             _personLanguageRepo = personLanguageRepo;
 
@@ -146,35 +148,54 @@ namespace People_MVC.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            
+            ViewBag.Cities = new SelectList(_cityService.All().Cities, "CityId", "Name");
+            ViewBag.Languages = new SelectList(_languageService.All().Languages, "LanguageId", "Name");
             return View(new CreatePersonViewModel());
         }
 
+
+
         [HttpPost]
-        public IActionResult Create(Person person)
+        public IActionResult Create(string name, int cityId, int countryId, int languageId, string telephone)
         {
+            
             if (ModelState.IsValid)
              {
-                _context.Persons.Add(person);
+                Person newPerson = new Person
+                {
+                    Name = name,
+                    CityId = cityId,
+                    TeleNumber = telephone
+                };
+                _context.Persons.Add(newPerson);
+                _context.SaveChanges();
+                int newPersonId = _context.Persons.ToList().LastOrDefault().PersonId;
+
+                PersonLanguage newPersonLanguage = new PersonLanguage
+                    {
+                        PersonId = newPersonId,
+                        LanguageId = languageId
+                    };
+                 _context.PersonLanguages.Add(newPersonLanguage);
+                
+
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
              }
                 return View(new CreatePersonViewModel());
         }
-       
-        [HttpGet]
+
+      
+        [HttpGet("/people/del/{id}")]
         public IActionResult Delete(int id)
         {
             //_peopleService.Remove(id);
             Person deletePerson = _context.Persons.Find(id);
             _context.Persons.Remove(deletePerson);
             _context.SaveChanges();
-            return RedirectToAction(nameof(Index));
-        }
 
-        public ActionResult Login()
-        {
-            ViewBag.LoginState = "Before login...";
-            return View();
+            return RedirectToAction("Index");
         }
 
     }
