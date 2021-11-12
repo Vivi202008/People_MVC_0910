@@ -14,7 +14,7 @@ namespace People_MVC.Models.Service
     {
         IPeopleRepo _peopleRepo ;
         PeopleDbContext _peopleDb;
-        //InMemoryPeopleRepo PeopleData = new InMemoryPeopleRepo();
+        
         public static List<Person> _peopleList = new List<Person>();
 
         //Constructor Injection--Fetching IPeopleRepo Object from Startup ConfigureServices
@@ -47,7 +47,7 @@ namespace People_MVC.Models.Service
 
             PeopleViewModel indexViewModel = new PeopleViewModel
             {
-                people = _peopleDb.Persons.ToList()
+                People = _peopleDb.Persons.ToList()
             };
             return indexViewModel;
         }
@@ -65,7 +65,7 @@ namespace People_MVC.Models.Service
 
         public PeopleViewModel FindBy(PeopleViewModel search)
         {
-            search.people = _peopleList.FindAll(
+            search.People = _peopleList.FindAll(
                 person => person.Name.Contains(search.Search,StringComparison.OrdinalIgnoreCase)
                        || person.City.Name.Contains(search.Search, StringComparison.OrdinalIgnoreCase)
                        || person.TeleNumber.Contains(search.Search)
@@ -77,6 +77,22 @@ namespace People_MVC.Models.Service
         public PersonLanguage AddToPerson(int LanguageID, int PersonID)
         {
             return _peopleRepo.AddToPerson(LanguageID, PersonID);
+        }
+
+        public Person Edit(int id, Person person)
+        {
+            Person personToUpdate = _peopleRepo.Read(id);
+
+            if (personToUpdate != null)
+
+            {
+                return _peopleRepo.Update(person);
+
+            }
+            else
+            {
+                return person;
+            }
         }
 
         public string GetCityName(int personId)

@@ -27,17 +27,5 @@ namespace People_MVC.Models
         [StringLength(20, MinimumLength = 8)]
         public string TeleNumber { get; set; }
 
-        //[Required]
-        //public int ID
-        //{
-        //    get
-        //    {
-        //        return ID;
-        //    }
-        //    set
-        //    {
-        //        ID = value;
-        //    }
-        //}
     }
 }

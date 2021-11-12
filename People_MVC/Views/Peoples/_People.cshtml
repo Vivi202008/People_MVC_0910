@@ -13,7 +13,7 @@
 
                 <th scope="col">@Html.DisplayFor(m => Model.PersonLanguages)</th>
 
-                <th><a asp-action="EditPerson" asp-route-id="@Model.PersonId" class="btn btn-primary">Edit</a></th>
+                <th><a href="#edit-div" id="edit-link" class="btn btn-primary"onclick="showDiv({ id: '@Model.PersonId', name: '@Model.Name', city: '@Model.City.Name', phoneNumber: '@Model.TeleNumber' })">Edit</a></th>
                 <th><a asp-action="Delete" asp-route-id="@Model.PersonId" class="btn btn-primary">Delete</a></th>
             </tr>
         </tbody>

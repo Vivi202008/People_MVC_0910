@@ -1,0 +1,34 @@
+﻿@model Person
+@{ ViewData["Title"] = "Edit the person's record"; }
+
+
+<div class="row p-3" id="edit-div">
+    <form asp-controller="Peoples" asp-action="Edit" method="post" id="edit-form" class="p-0">
+        <h3 class="me-3">Edit person -----@Html.Encode(ViewData["Name"])</h3>
+        <input id="editID" name="id" type="hidden" />
+
+        <div class="form-group">
+            <label for="Name">Name:</label>
+            <input class="form-control" type="text" name="Name" value="" placeholder=@ViewBag.Name/>
+        </div>
+
+        <div class="form-group">
+            <label for="CityId">City:</label>
+            <select class="form-select" name="CityId" asp-items="ViewBag.Cities" placeholder="Select a city">
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="LanguageIds">Languages:</label>
+            <select class="form-select" name="LanguageId" asp-items="ViewBag.Languages"placeholder="">
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="PhoneNr">Phonenumber:</label>
+            <input class="form-control" type="text" name="telephone" value="" placeholder=@ViewBag.TeleNumber/>
+        </div>
+
+        <input type="submit" class="btn btn-secondary" id="edit-btn" value="Save" />
+    </form>
+</div>

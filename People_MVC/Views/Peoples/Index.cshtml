@@ -11,9 +11,10 @@
     <button type="submit" class="col-2" asp-controller="Peoples" asp-action="SearchSth"> Search</button>
 </form>
 
-<form>
+<div>
     <label><a asp-action="Create">Create a new person's record!</a> </label>
-</form>
+</div>
+
 
 <table class="table table-hover">
     <thead>
@@ -41,10 +42,11 @@
                 <td>@asset.PLanguages</td>
 
                 <td>
-                    <a class="btn btn-primary" asp-controller="Peoples" asp-action="EditPerson" asp-route-id="@asset.PId">Edit</a>
+                    <a class="btn btn-primary" asp-controller="Peoples" asp-action="Edit" asp-route-id="@asset.PId">Edit</a>
                     <a class="btn btn-primary" asp-controller="Peoples" asp-action="DeletePerson" asp-route-id="@asset.PId">Delete</a>
                 </td>
             </tr>
+
         }
     </tbody>
 

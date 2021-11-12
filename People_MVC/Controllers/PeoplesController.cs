@@ -6,6 +6,7 @@ using People_MVC.Models;
 using People_MVC.Models.Repo;
 using People_MVC.Models.Service;
 using People_MVC.Models.ViewModel;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -72,7 +73,7 @@ namespace People_MVC.Controllers
         public IActionResult Index(PeopleViewModel peopleViewModel)
         {
             PeopleViewModel vm = new PeopleViewModel();
-            vm.people = _context.Persons.ToList();
+            vm.People = _context.Persons.ToList();
 
             if (!string.IsNullOrEmpty(peopleViewModel.Search))
             {
@@ -157,7 +158,7 @@ namespace People_MVC.Controllers
 
 
         [HttpPost]
-        public IActionResult Create(string name, int cityId, int countryId, int languageId, string telephone)
+        public IActionResult Create(string name, int cityId, int languageId, string telephone)
         {
             
             if (ModelState.IsValid)
@@ -188,14 +189,49 @@ namespace People_MVC.Controllers
 
       
         [HttpGet("/people/del/{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult DeletePerson(int id)
         {
-            //_peopleService.Remove(id);
-            Person deletePerson = _context.Persons.Find(id);
-            _context.Persons.Remove(deletePerson);
-            _context.SaveChanges();
-
+            _peopleService.Remove(id);
             return RedirectToAction("Index");
+        }
+
+        [HttpGet("/peoples/edit/{id}")]
+        public IActionResult Edit(int id)
+        {
+            ViewBag.Cities = new SelectList(_cityService.All().Cities, "CityId", "Name");
+            ViewBag.Languages = new SelectList(_languageService.All().Languages, "LanguageId", "Name");
+            //return View(new CreatePersonViewModel());
+            return View();
+        }
+
+        [HttpPost("/peoples/edit/{id}")]
+        public IActionResult Edit(int id, string name, string city, string phoneNumber, int[] languages)
+        {
+            ViewBag.Cities = new SelectList(_cityService.All().Cities, "CityId", "Name");
+            ViewBag.Languages = new SelectList(_languageService.All().Languages, "LanguageId", "Name");
+
+            City selectedCity = _cityService.FindBy(Convert.ToInt32(city));
+
+            Person person = _peopleRepo.Read(id);
+            ViewBag.Data = person;
+
+            person.Name = name;
+            person.City = selectedCity;
+            person.TeleNumber = phoneNumber;
+            person.PersonLanguages.Clear();
+
+            for (int i = 0; i < languages.Length; i++)
+            {
+                Language lg = _languageService.FindBy(languages[i]);
+                person.PersonLanguages.Add(new PersonLanguage { PersonId = id, Person = person, LanguageId = lg.LanguageId, Language = lg });
+            }
+
+            if (ModelState.IsValid)
+            {
+                _peopleService.Edit(id, person);
+            }
+
+            return View("Index", _peopleService.All());
         }
 
     }
