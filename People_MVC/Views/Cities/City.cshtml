@@ -13,7 +13,7 @@
     
     <td>
         <a asp-controller="Cities" asp-action="DeleteCity" asp-route-id="@Model.CityId">Delete</a>
-        <a href="#edit-div" id="edit-link" onclick="editLocation({ id: '@Model.CityId', name: '@Model.Name', country = '@Model.Country.Name' })">Edit</a>
+        <a href="#edit-div" id="edit-link" onclick="editLocation({ id: '@Model.CityId', name: '@Model.Name' })">Edit</a>
     </td>
 </tr>
 
