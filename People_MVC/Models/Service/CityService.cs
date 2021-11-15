@@ -69,22 +69,49 @@ namespace People_MVC.Models.Service
             return newCity;
         }
 
-        public City Edit(int id, City city)
+        //public City Edit(int id, City city)
+        //{
+        //    City cityToUpdate = _cityRepo.Read(id);
+
+        //    if (cityToUpdate != null)
+
+        //    {
+        //        return _cityRepo.Update(city);
+
+        //    }
+        //    else
+        //    {
+        //        return city;
+        //    }
+        //}
+        public City Edit(int id, string name, string countryName)
         {
-            City cityToUpdate = _cityRepo.Read(id);
+            int newCountryId = 0;
 
-            if (cityToUpdate != null)
-
+            foreach (var c in _dbPeopleC.Countries)
             {
-                return _cityRepo.Update(city);
-
+                if (c.Name == name)
+                {
+                    newCountryId = c.CountryId;
+                }
             }
-            else
+            if (newCountryId == 0)
             {
-                return city;
+
+                Country newCountry = new Country { Name = countryName };
+                _dbPeopleC.Countries.Add(newCountry);
+                _dbPeopleC.SaveChanges();
+                newCountryId = _dbPeopleC.Countries.ToList().Last().CountryId;
             }
+
+            City updateCity = new City { Name = name, CountryId = newCountryId };
+
+            _dbPeopleC.Cities.Update(updateCity);
+
+            _dbPeopleC.SaveChanges();
+
+            return updateCity;
         }
-
         public City FindBy(int id)
         {
             return _cityRepo.Read(id);

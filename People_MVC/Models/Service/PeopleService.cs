@@ -71,8 +71,8 @@ namespace People_MVC.Models.Service
             };
             return indexViewModel;
         }
-
-         public Person FindBy(int id)
+       
+        public Person FindBy(int id)
         {
             return _peopleRepo.Read(id);
         }
@@ -85,11 +85,6 @@ namespace People_MVC.Models.Service
 
         public PeopleViewModel FindBy(PeopleViewModel search)
         {
-            //search.People = _peopleList.FindAll(
-            //    person => person.Name.Contains(search.Search,StringComparison.OrdinalIgnoreCase)
-            //           || person.City.Name.Contains(search.Search, StringComparison.OrdinalIgnoreCase)
-            //           || person.TeleNumber.Contains(search.Search)
-            //);
             List<Language> searchedLanguage = (from lang in _languageRepo.Read()
                                                where lang.Name.Contains(search.Search, System.StringComparison.OrdinalIgnoreCase)
                                                select lang)
@@ -161,5 +156,6 @@ namespace People_MVC.Models.Service
             }
             return PLanguages;
         }
-    }
+
+        }
 }

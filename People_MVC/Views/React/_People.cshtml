@@ -5,9 +5,9 @@
     <div class="col-md-1">@Model.PersonId</div>
     <div class="col-md-2">@Model.Name</div>
     <div class="col-md-2">@Model.TeleNumber</div>
-    <div class="col-md-2">@Model.City.Name</div>
+    <div class="col-md-1">@Model.City.Name</div>
     <div class="col-md-1">@Model.City.Country.Name</div>
-    <div class="col-md-2 display-language">
+    <div class="col-md-3 display-language">
         
         @foreach (var item in Model.PersonLanguages)
         {
@@ -22,8 +22,8 @@
         }
 </div>
 
-<div class="col-md-1">
+<div class="col-md-2">
     <a href="#edit-div" id="edit-link" onclick="showDiv({ id: '@Model.PersonId', name: '@Model.Name', city: '@Model.City.Name', phoneNumber: '@Model.TeleNumber'})">Edit</a>
-    <div class="col-md-1"><a asp-action="Delete" asp-route-id="@Model.PersonId">Delete</a></div>
+    <a asp-action="Delete" asp-route-id="@Model.PersonId">Delete</a>
 </div>
 </div>

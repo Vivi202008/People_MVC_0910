@@ -34,6 +34,7 @@ function showDiv(p) {
 function editLocation(p) {
     document.getElementById("editID").value = p.id;
     document.getElementById("editName").value = p.name;
+    document.getElementById("editName1").value = p.name1;
 }
 
 tail.select("#addCity", {

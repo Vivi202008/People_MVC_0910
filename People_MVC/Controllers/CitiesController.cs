@@ -62,13 +62,12 @@ namespace PeopleMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(int id, string name, int countryId)
+        public IActionResult Edit(int id, string name, string name1)
         {
 
-            City editedCity = new City { CityId = id, Name = name, Country = { CountryId = countryId } };
-            if (ModelState.IsValid)
+           if (ModelState.IsValid)
             {
-                _cityservice.Edit(id, editedCity);
+                _cityservice.Edit(id, name,name1);
             }
 
             return View("Index", _cityservice.All());

@@ -16,9 +16,9 @@ namespace People_MVC.Models
         public City City { get; set; }   //one to one
 
        
-        //public Country Country { get; set; }  
+       
         public List<PersonLanguage> PersonLanguages { get; set; }  //one to many
-        //public List<PersonLanguage> Languages { get; set; } = new List<PersonLanguage>();
+       
 
     }
 }

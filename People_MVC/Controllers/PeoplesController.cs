@@ -32,7 +32,6 @@ namespace People_MVC.Controllers
             _countryService = countryService;
             _languageService = languageService;
             _personLanguageRepo = personLanguageRepo;
-
         }
 
         [HttpGet]

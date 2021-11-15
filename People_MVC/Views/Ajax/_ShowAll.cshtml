@@ -3,11 +3,11 @@
 <table class="table table-hover">
     <tbody>
         <tr>
-            <td>@Model.PersonId</td>
-            <td>@Model.Name</td>
-            <td>@Model.CityId.</td>
-            <td>@Model.TeleNumber</td>
-            <td><a class="Delete1" asp-controller="Peoples" asp-action="Delete" asp-route-id="@Model.PersonId">Delete</a></td>
+            <td scope="col">@Model.PersonId</tdscope="col">
+            <td scope="col">@Model.Name</td>
+            <td scope="col">@Model.CityId</td>
+            <td scope="col">@Model.TeleNumber</td>
+            <td scope="col"><a class="Delete1" asp-controller="Peoples" asp-action="Delete" asp-route-id="@Model.PersonId">Delete</a></td>
         </tr>
     </tbody>
 </table>

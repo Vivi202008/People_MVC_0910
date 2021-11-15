@@ -12,7 +12,6 @@ namespace People_MVC.Models.Service
         Person Add(CreatePersonViewModel person);
         PeopleViewModel All();
         PeopleViewModel FindBy(PeopleViewModel search);
-             
         Person FindBy(int id);
         bool Remove(int id);
 
