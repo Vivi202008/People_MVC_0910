@@ -9,7 +9,7 @@ namespace People_MVC.Models.ViewModel
     {
         public CreateCountryViewModel Country { get; set; }
         public List<Country> Countries = new List<Country>();
-
+        public CreateCountryViewModel EditCountry { get; set; }
         public string Search { get; set; }
     }
 }

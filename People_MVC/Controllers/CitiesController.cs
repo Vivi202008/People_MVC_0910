@@ -13,19 +13,19 @@ namespace PeopleMVC.Controllers
 {
     public class CitiesController : Controller
     {
-        private readonly ICityService _service;
+        private readonly ICityService _cityservice;
         private readonly ICountryService _countryService;
 
-        public CitiesController(ICityService service, ICountryService countryService)
+        public CitiesController(ICityService cityservice, ICountryService countryService)
         {
-            this._service = service;
+            this._cityservice = cityservice;
             this._countryService = countryService;
         }
         public IActionResult Index()
         {
             ViewBag.Countries = new SelectList(_countryService.All().Countries, "Id", "Name");
 
-            return View(_service.All());
+            return View(_cityservice.All());
         }
 
         [HttpGet("cities/{id}")]
@@ -33,7 +33,7 @@ namespace PeopleMVC.Controllers
         {
             try
             {
-                City city = _service.FindBy(id);
+                City city = _cityservice.FindBy(id);
                 return PartialView("City", city);
             }
             catch (Exception)
@@ -47,7 +47,7 @@ namespace PeopleMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                _service.Create(cityName,countryName);
+                _cityservice.Create(cityName,countryName);
 
             }
 
@@ -57,10 +57,21 @@ namespace PeopleMVC.Controllers
         [HttpGet("cities/del/{id}")]
         public IActionResult DeleteCity(int id)
         {
-            _service.Remove(id);
+            _cityservice.Remove(id);
             return RedirectToAction("Index");
         }
 
-  
+        [HttpPost]
+        public IActionResult Edit(int id, string name, int countryId)
+        {
+
+            City editedCity = new City { CityId = id, Name = name, Country = { CountryId = countryId } };
+            if (ModelState.IsValid)
+            {
+                _cityservice.Edit(id, editedCity);
+            }
+
+            return View("Index", _cityservice.All());
+        }
     }
 }

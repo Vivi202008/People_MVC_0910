@@ -69,6 +69,22 @@ namespace People_MVC.Models.Service
             return newCity;
         }
 
+        public City Edit(int id, City city)
+        {
+            City cityToUpdate = _cityRepo.Read(id);
+
+            if (cityToUpdate != null)
+
+            {
+                return _cityRepo.Update(city);
+
+            }
+            else
+            {
+                return city;
+            }
+        }
+
         public City FindBy(int id)
         {
             return _cityRepo.Read(id);

@@ -4,6 +4,7 @@ using People_MVC.Data;
 using People_MVC.Models;
 using People_MVC.Models.Repo;
 using People_MVC.Models.Service;
+using People_MVC.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -31,78 +32,41 @@ namespace People_MVC.Controllers
             _personLanguageRepo = personLanguageRepo;
           }
 
-        [HttpGet]
-        public IActionResult Index()
+        //[HttpGet]
+        //public IActionResult Index()
+        //{
+        //    ViewBag.Cities = new SelectList(_cityService.All().Cities, "CityId", "Name");
+        //    ViewBag.Languages = new SelectList(_languageService.All().Languages, "LanguageId", "Name");
+        //    List<dynamic> oneList = new List<dynamic>();
+
+        //    foreach (var item in _context.Persons)
+        //    {
+        //        dynamic dyObj = new ExpandoObject();
+        //        dyObj.PId = item.PersonId;
+        //        dyObj.PName = item.Name;
+        //        dyObj.Phone = item.TeleNumber;
+        //        dyObj.CityName = _peopleService.GetCityName(item.PersonId);
+        //        dyObj.CountryName = _peopleService.GetCountryName(item.PersonId);
+        //        dyObj.PLanguages = _peopleService.GetPersonLanguage(item.PersonId);
+        //        oneList.Add(dyObj);
+        //    }
+        //    ViewBag.data = oneList;
+        //    return View();
+        //}
+
+        public IActionResult Index(PeopleViewModel peopleViewModel)
         {
             ViewBag.Cities = new SelectList(_cityService.All().Cities, "CityId", "Name");
             ViewBag.Languages = new SelectList(_languageService.All().Languages, "LanguageId", "Name");
-            List<dynamic> oneList = new List<dynamic>();
 
-            foreach (var item in _context.Persons)
+            if (!string.IsNullOrEmpty(peopleViewModel.Search))
             {
-                dynamic dyObj = new ExpandoObject();
-                dyObj.PId = item.PersonId;
-                dyObj.PName = item.Name;
-                dyObj.Phone = item.TeleNumber;
-                dyObj.CityName = _peopleService.GetCityName(item.PersonId);
-                dyObj.CountryName = _peopleService.GetCountryName(item.PersonId);
-                dyObj.PLanguages = _peopleService.GetPersonLanguage(item.PersonId);
-                oneList.Add(dyObj);
-            }
-            ViewBag.data = oneList;
-
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult SearchSth(string search)
-        {
-            List<dynamic> oneList = new List<dynamic>();
-
-            foreach (var item in _context.Persons)
-            {
-                dynamic dyObj = new ExpandoObject();
-                dyObj.PId = item.PersonId;
-                dyObj.PName = item.Name;
-                dyObj.Phone = item.TeleNumber;
-                dyObj.CityName = _peopleService.GetCityName(item.PersonId);
-                dyObj.CountryName = _peopleService.GetCountryName(item.PersonId);
-                dyObj.PLanguages = _peopleService.GetPersonLanguage(item.PersonId);
-
-                oneList.Add(dyObj);
-            }
-
-            List<dynamic> resultList = new List<dynamic>();
-            if (search != null)
-            {
-                foreach (var item in oneList)
-                {
-                    dynamic dySearchObj = new ExpandoObject();
-
-                    if (item.PId.ToString().Contains(search)
-                        || item.PName.Contains(search)
-                        || item.Phone.Contains(search)
-                        || item.CityName.Contains(search)
-                        || item.CountryName.Contains(search)
-                        || item.PLanguages.Contains(search))
-                    {
-                        dySearchObj.PId = item.PId;
-                        dySearchObj.PName = item.PName;
-                        dySearchObj.Phone = item.Phone;
-                        dySearchObj.CityName = item.CityName;
-                        dySearchObj.CountryName = item.CountryName;
-                        dySearchObj.PLanguages = item.PLanguages;
-
-                        resultList.Add(dySearchObj);
-                    }
-                }
+                return View(_peopleService.FindBy(peopleViewModel));
             }
             else
             {
-                resultList = oneList;
+                return View(_peopleService.All());
             }
-            ViewBag.SearchData = resultList;
-            return View("Index" );
         }
 
         [HttpGet]
@@ -116,53 +80,25 @@ namespace People_MVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(string name, int cityId, int languageId, string telephone)
-        {
-
-            if (ModelState.IsValid)
-            {
-                Person newPerson = new Person
-                {
-                    Name = name,
-                    CityId = cityId,
-                    TeleNumber = telephone
-                };
-                _context.Persons.Add(newPerson);
-                _context.SaveChanges();
-                int newPersonId = _context.Persons.ToList().LastOrDefault().PersonId;
-
-                PersonLanguage newPersonLanguage = new PersonLanguage
-                {
-                    PersonId = newPersonId,
-                    LanguageId = languageId
-                };
-                _context.PersonLanguages.Add(newPersonLanguage);
-                _context.SaveChanges();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(new CreatePersonViewModel());
-        }
-
-        [HttpPost]
         public IActionResult Edit(int id, string name, string city, string phoneNumber, int[] languages)
         {
             City selectedCity = _cityService.FindBy(Convert.ToInt32(city));
 
-            Person person = _peopleService.FindBy(id);
-            person.Name = name;
-            person.City = selectedCity;
-            person.TeleNumber = phoneNumber;
-            person.PersonLanguages.Clear();
+            Person personEdit = _peopleService.FindBy(id);
+            personEdit.Name = name;
+            personEdit.City = selectedCity;
+            personEdit.TeleNumber = phoneNumber;
+            personEdit.PersonLanguages.Clear();
 
             for (int i = 0; i < languages.Length; i++)
             {
-                Language lg = _languageService.FindBy(languages[i]);
-                person.PersonLanguages.Add(new PersonLanguage { PersonId = id, Person = person, LanguageId = lg.LanguageId, Language = lg });
+                Language languageEdit = _languageService.FindBy(languages[i]);
+                personEdit.PersonLanguages.Add(new PersonLanguage { PersonId = id, Person = personEdit, LanguageId = languageEdit.LanguageId, Language = languageEdit });
             }
 
             if (ModelState.IsValid)
             {
-                _peopleService.Edit(id, person);
+                _peopleService.Edit(id, personEdit);
             }
 
             return View("Index", _peopleService.All());

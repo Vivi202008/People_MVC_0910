@@ -14,7 +14,7 @@ namespace People_MVC.Models.Service
         CountryViewModel All();
         CountryViewModel FindBy(CountryViewModel search);
         Country FindBy(int id);
-
+        Country Edit(int id, Country country);
         bool Remove(int id);
     }
 }

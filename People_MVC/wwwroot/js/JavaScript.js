@@ -5,10 +5,8 @@
     document.getElementById("phone").value = "";
 }
 
-
 function showDiv(p) {
-
-    // clear select
+    // clear
     for (const option of document.querySelectorAll("option.edit[selected]")) {
         option.removeAttribute('selected');
     }
@@ -20,7 +18,7 @@ function showDiv(p) {
 
     document.getElementById("editID").value = p.id;
     document.getElementById("editName").value = p.name;
-    document.getElementById("editPhoneNumber").value = p.teleNumber;
+    document.getElementById("editPhoneNumber").value = p.phoneNumber;
 
     //change the value of drop down list
     var cityList = document.getElementById("selectCity");
@@ -36,71 +34,6 @@ function showDiv(p) {
 function editLocation(p) {
     document.getElementById("editID").value = p.id;
     document.getElementById("editName").value = p.name;
-}
-
-
-//for ajax controller
-function personShow() {
-
-    $.ajax({
-        type: "GET",
-        url: "Ajax/People",
-        success: function (output) {
-            //console.log(output);
-            document.getElementById("showResult").innerHTML = output;
-
-        },
-        error: function (output) {
-            alert(output.status + " :" + output.responseText);
-        }
-    })
-}
-
-function personDetails() {
-    var id = document.getElementById("personId").value;
-    /* console.log(!id);*/
-    if (id) {
-        $.ajax({
-            type: "GET",
-            url: `Ajax/Details/${id}`,
-            success: function (output) {
-                document.getElementById("showResult").innerHTML = output;
-
-            },
-            error: function (output) {
-                alert(output.status + " :" + output.responseText);
-            }
-        })
-    }
-    else {
-        $.ajax({
-            type: "GET",
-            url: "Ajax/Error",
-            success: function (output) {
-                document.getElementById("showResult").innerHTML = output;
-
-            },
-            error: function (output) {
-                alert(output.status + " :" + output.responseText);
-            }
-        })
-    }
-}
-
-
-function personDelete() {
-    var id = document.getElementById("personId").value
-    $.ajax({
-        type: "GET",
-        url: `Ajax/Delete/${id}`,
-        success: function (output) {
-            console.log(output);
-            document.getElementById("showResult").innerHTML = output;
-        },
-        error: function (output) {
-            console.log(output.status + " :" + output.responseText);
-        }
-    })
 }
 
 tail.select("#addCity", {

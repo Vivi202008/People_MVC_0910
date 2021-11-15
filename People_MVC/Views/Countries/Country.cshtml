@@ -13,9 +13,10 @@
         @foreach (City city in @Model.Cities)
         {
             <p>@city.Name</p>
-         }
+        }
     </td>
-    <td><a asp-controller="Countries" asp-action="DeleteCountry" asp-route-id="@Model.CountryId">Delete</a></td>
+    <td><a asp-controller="Countries" asp-action="DeleteCountry" asp-route-id="@Model.CountryId">Delete</a>
+        <a href="#edit-div" id="edit-link" onclick="editLocation({ id: '@Model.CountryId', name: '@Model.Name'})">Edit</a></td>
 </tr>
 
 

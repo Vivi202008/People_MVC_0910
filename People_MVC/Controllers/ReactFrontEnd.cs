@@ -63,14 +63,14 @@ namespace People_MVC.Controllers
 
             for (int i = 0; i < person.Languages.Length; i++)
             {
-                Language lg = _languageRepo.Read(person.Languages[i]);
+                Language languageEdit = _languageRepo.Read(person.Languages[i]);
                 personToEdit.PersonLanguages.Add(
                     new PersonLanguage
                     {
                         PersonId = id,
                         Person = personToEdit,
-                        LanguageId = lg.LanguageId,
-                        Language = lg
+                        LanguageId = languageEdit.LanguageId,
+                        Language = languageEdit
                     }
                  );
             }

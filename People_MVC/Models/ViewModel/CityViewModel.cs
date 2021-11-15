@@ -11,7 +11,7 @@ namespace People_MVC.Models.ViewModel
         public CreateCityViewModel City { get; set; }
 
         public List<City> Cities = new List<City>();
-
+        public CreateCityViewModel EditCity { get; set; }
         public string Search { get; set; }
     }
 }

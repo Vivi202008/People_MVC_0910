@@ -7,36 +7,36 @@
 
 <form asp-controller="React" asp-action="Index" method="get" class="p-0">
     <label style="font-size:20px" class="col-4">Please input something to search</label>
-    <input asp-for="Search" class="col-4" type="text" value="" />
-    <button type="submit" class="col-2" value="Search"> Search</button>
+    <input asp-for="Search" class="col-4" name="Search" type="text" value="" />
+    <input type="submit" class="btn btn-secondary" value="Search">
 </form>
-<div class="row py-3">
-    <form asp-controller="React" asp-action="Index" method="get" class="p-0">
-        <label asp-for="Search" class="me-3">Please enter your string to search</label>
-        <input asp-for="Search" class="me-3" />
-        <input type="submit" class="btn btn-secondary" value="Search">
-    </form>
-</div>
 <hr />
+
 <div class="container">
     <div class="row">
-        <div class="col-8" id="show-div">
+        <div class="col-9" id="show-div">
             <h4>The table of the person's records! </h4>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">PersonId</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">TeleNumber</th>
-                        <th scope="col">City</th>
-                        <th scope="col">Country</th>
-                        <th scope="col">PersonLanguages</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-
-                <tbody id="tbody">
-                   @foreach (var asset in ViewBag.data)
+            <div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">PersonId</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">TeleNumber</th>
+                            <th scope="col">City</th>
+                            <th scope="col">Country</th>
+                            <th scope="col">PersonLanguages</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+                <div>
+                    @foreach (Person person in Model.People)
+                    {
+                        <partial name="_People.cshtml" model="person" />
+                    }
+                    @*@foreach (var asset in ViewBag.data)
                     {
                         <tr>
                             <td>@asset.PId</td>
@@ -51,33 +51,45 @@
                                 <a asp-controller="React" asp-action="Delete" asp-route-id="@asset.PId">Delete</a>
                             </td>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    }*@
+                    
+                </div>
+        
         </div>
 
-        <div class="col-4">
+        <div class="col-3">
             <div id="create-div">
                 <h4>Create a new person's record!</h4>
-                <form asp-controller="People" asp-action="Create" method="post" id="create-form" class="p-0">
+                <form asp-controller="React" asp-action="Create" method="post" id="create-form" class="p-0">
                     <p>
                         <label>Name:</label>
                         <span asp-validation-for="Person.Name" class="text-danger"></span>
                         <input asp-for="Person.Name" id="name" placeholder="Enter name" class="me-3" />
-                    </p>
-                    <p>
+                    
                         <label>Phone:</label>
                         <span asp-validation-for="Person.TeleNumber" class="text-danger"></span>
                         <input asp-for="Person.TeleNumber" id="phone" placeholder="Enter phone number" class="me-3" /><br />
                     </p>
                     <label>City:</label>
-                    <select  asp-for="Person.City" asp-items="ViewBag.Cities"id="addCity"></select>
+                    <select asp-for="Person.City" asp-items="ViewBag.Cities" id="addCity">
+                        @foreach (City item in Model.Cities)
+                        {
+                            <option value="@item.CityId">@item.Name</option>
+                        }
+                    </select>
                     <br />
+
                     <label>Language:</label>
-                    <select  name="LanguageId" asp-items="ViewBag.Languages"> </select>
+                    <select name="languages" asp-items="ViewBag.Languages">
+                        <option value="" selected>Select Languages</option>
+                        @foreach (Language item in Model.Languages)
+                        {
+                            <option value="@item.LanguageId">@item.Name</option>
+                        }
+                    </select>
                     <br />
-                    <input type="submit" class="btn btn-secondary" value="Add">
-                    <input type="button" class="btn btn-secondary" value="Reset" id="reset" onclick="Clear()">
+                    <input type="submit" class="btn-primary" value="Create">
+                    <input type="button" class="btn-primary" value="Reset" id="reset" onclick="Clear()">
                 </form>
             </div>
             <hr/>
@@ -89,17 +101,16 @@
                         <input id="editID" name="id" type="hidden" />
                         <span asp-validation-for="EditPerson.Name" class="text-danger"></span>
                         <input asp-for="EditPerson.Name" id="editName" name="name" class="me-3" placeholder="Enter name" /><br />
-                    </p>
-                    <p>
+                    
                         <label>Phone:</label>
-                        <span asp-validation-for="EditPerson.TeleNumber"></span>
+                        <span asp-validation-for="EditPerson.TeleNumber"class="text-danger"></span>
                         <input asp-for="EditPerson.TeleNumber" id="editPhoneNumber" name="phoneNumber" class="me-3" placeholder="Enter phonenumber" /><br />
                     </p>
                     <label>City:</label>
-                    <select asp-for="EditPerson.City" asp-items="ViewBag.Cities" id="selectCity" name="city" placeholder="SElect"></select>
+                    <select asp-for="EditPerson.City" asp-items="ViewBag.Cities" id="selectCity" name="city" placeholder="Select"></select>
                     <br />                    
                     <label>Language:</label>
-                    <select  name="LanguageId" asp-items="ViewBag.Languages"> </select>
+                    <select  name="languages" asp-items="ViewBag.Languages"> </select>
                     <br />
                     <input type="submit" class="btn-primary" id="edit-btn" value="Save" />
                 </form>

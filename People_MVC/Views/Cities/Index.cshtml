@@ -5,34 +5,61 @@
 
 @{ ViewBag.Title = "Cities"; }
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">CityId</th>
-            <th scope="col">Name</th>
-            <th scope="col">Country</th>
-            <th scope="col">Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (City city in @Model.Cities)
-        {
-             <partial name="City" model="@city" />}
-    </tbody>
-</table>
+<h2>Manage the cities!</h2><br />
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">CityId</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Country</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (City city in @Model.Cities)
+                    {
+                        <partial name="City" model="@city" />
+                    }
+                </tbody>
+            </table>
+        </div>
 
-<form class="create-form" asp-controller="Cities" asp-action="CreateCity" method="post">
-    <div class="form-group">
-        <h4>Create a new city.</h4>
+        <div class="col-3">
+            <form class="create-form" asp-controller="Cities" asp-action="CreateCity" method="post">
+                <div id="create-div">
+                    <h4>Create a new city.</h4>
 
-        <label class="form-text" for="Name">CityName:</label>
-        <input class="form-control" type="text" name="cityName" value="" />         
+                    <label class="form-text" for="Name">City:</label>
+                    <input class="form-control" type="text" name="cityName" value="" />
 
-        <label class="form-text" for="Name">CountryName:</label>
-        <input class="form-control" type="text" name="countryName" value="" />
+                    <label class="form-text" for="Name">Country:</label>
+                    <input class="form-control" type="text" name="countryName" value="" /><br />
 
-        <button class="btn btn-primary" type="submit" name="submit" value="Create">Create</button>
+                    <button class="btn btn-primary" type="submit" name="submit" value="Create">Create</button>
+                </div>
+            </form>
+            <hr />
+            <div id="edit-div">
+                <h4 class="me-4">Edit city </h4>
+                <form asp-controller="Cities" asp-action="Edit" method="post" id="edit-form" class="p-0">
+                    <input id="editID" name="id" type="hidden" />
+
+                    <label class="form-text" for="Name">City:</label>
+                    <span asp-validation-for="EditCity.Name" class="text-danger"></span>
+                    <input asp-for="EditCity.Name" id="editName" name="name" class="me-4" placeholder="Edit city name" />
+
+                    <label class="form-text" for="Name">Country:</label>
+                    <span asp-validation-for="EditCity.Country.Name" class="text-danger"></span>
+                    <input asp-for="EditCity.Country.Name" id="editName" name="country" class="me-4" placeholder="Edit conutry name" /><br />
+
+                    <input type="submit" class="btn btn-secondary" id="edit-btn" value="Save" />
+                </form>
+
+            </div>
+
+        </div>
     </div>
-
-</form>
-
+</div>

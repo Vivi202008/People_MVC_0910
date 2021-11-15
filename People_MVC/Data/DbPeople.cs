@@ -82,7 +82,14 @@ namespace People_MVC.Data
 
         public Person Read(int id)
         {
-            return _dbPeopleC.Persons.Include(people => people.City).FirstOrDefault(person => person.PersonId == id);
+            Person personToRead = (from person in _dbPeopleC.Persons
+                                   select person)
+                                   .Include(c => c.City)
+                                   .Include(c => c.PersonLanguages)
+                                   .FirstOrDefault(person => person.PersonId == id);
+
+            return personToRead; 
+            //return _dbPeopleC.Persons.Include(people => people.City).FirstOrDefault(person => person.PersonId == id);
         }
 
         public Person Update(Person person)

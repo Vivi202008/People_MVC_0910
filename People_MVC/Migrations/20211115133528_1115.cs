@@ -2,7 +2,7 @@
 
 namespace People_MVC.Migrations
 {
-    public partial class NewDababase : Migration
+    public partial class _1115 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

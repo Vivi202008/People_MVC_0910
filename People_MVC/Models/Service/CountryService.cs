@@ -32,6 +32,22 @@ namespace People_MVC.Models.Service
             return CountryVM;
         }
 
+        public Country Edit(int id, Country country)
+        {
+            Country countryToUpdate = _countryRepo.Read(id);
+
+            if (countryToUpdate != null)
+
+            {
+                return _countryRepo.Update(country);
+
+            }
+            else
+            {
+                return country;
+            }
+        }
+
         public CountryViewModel FindBy(CountryViewModel search)
         {
             search.Countries = _countryRepo.Read().FindAll(country => country.Name.Contains(search.Search, StringComparison.OrdinalIgnoreCase));

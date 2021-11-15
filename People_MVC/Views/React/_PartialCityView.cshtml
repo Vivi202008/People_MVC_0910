@@ -1,0 +1,8 @@
+﻿@model CityViewModel
+<select asp-for="Cities" class="me-3" id="addCity">
+    <option value="" selected>Select City</option>
+    @foreach (City item in Model.Cities)
+    {
+        <option value="@item.CityId">@item.Name</option>
+    }
+</select>

@@ -12,15 +12,15 @@ namespace PeopleMVC.Controllers
 {
     public class CountriesController : Controller
     {
-        private readonly ICountryService _counrryService;
+        private readonly ICountryService _countryService;
        
         public CountriesController(ICountryService service)
         {
-            this._counrryService = service;
+            this._countryService = service;
         }
         public IActionResult Index()
         {
-            return View(_counrryService.All());
+            return View(_countryService.All());
         }
 
         [HttpGet("/countries/{id}")]
@@ -28,7 +28,7 @@ namespace PeopleMVC.Controllers
         {
             try
             {
-                Country country = _counrryService.FindBy(id);
+                Country country = _countryService.FindBy(id);
                 return PartialView("Country", country);
             }
             catch (Exception)
@@ -40,7 +40,7 @@ namespace PeopleMVC.Controllers
         [HttpPost]
         public IActionResult CreateCountry(string countryName)
         {
-            _counrryService.Add(countryName);
+            _countryService.Add(countryName);
            
             return RedirectToAction("Index");
         }
@@ -48,11 +48,21 @@ namespace PeopleMVC.Controllers
         [HttpGet("/countries/del/{id}")]
         public IActionResult DeleteCountry(int id)
         {
-            _counrryService.Remove(id);
+            _countryService.Remove(id);
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public IActionResult Edit(int id, string name)
+        {
+            Country editedCountry = new Country { CountryId = id, Name = name };
+            if (ModelState.IsValid)
+            {
+                _countryService.Edit(id, editedCountry);
+            }
 
+            return View("Index", _countryService.All());
+        }
 
     }
 }

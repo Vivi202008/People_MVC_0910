@@ -9,8 +9,8 @@ using People_MVC.Data;
 namespace People_MVC.Migrations
 {
     [DbContext(typeof(PeopleDbContext))]
-    [Migration("20210924081344_NewDababase")]
-    partial class NewDababase
+    [Migration("20211115133528_1115")]
+    partial class _1115
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

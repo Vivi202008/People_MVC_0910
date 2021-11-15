@@ -14,15 +14,21 @@ namespace People_MVC.Models.Service
     {
         IPeopleRepo _peopleRepo ;
         PeopleDbContext _peopleDb;
-        
+        ILanguageRepo _languageRepo;
+        private readonly ICityRepo _cityRepo;
+        private readonly IPersonLanguageRepo _personLanguageRepo;
+
         public static List<Person> _peopleList = new List<Person>();
 
         //Constructor Injection--Fetching IPeopleRepo Object from Startup ConfigureServices
 
-        public PeopleService(IPeopleRepo peopleRepo, PeopleDbContext peopleDb)
+        public PeopleService(IPeopleRepo peopleRepo, ICityRepo cityRepo,IPersonLanguageRepo personLanguageRepo,PeopleDbContext peopleDb, ILanguageRepo languageRepo)
         {
             _peopleRepo = peopleRepo;
             _peopleDb = peopleDb;
+            _languageRepo = languageRepo;
+            _cityRepo = cityRepo;
+            _languageRepo = languageRepo;
         }
 
         public PeopleService()
@@ -40,6 +46,20 @@ namespace People_MVC.Models.Service
                 TeleNumber =person.TeleNumber
             };
             return _peopleRepo.Create(addPerson);
+
+            City selectedCity = _cityRepo.Read(Convert.ToInt32(person.City));
+
+            Person newPerson = new Person { Name = person.Name, City = selectedCity, TeleNumber = person.TeleNumber };
+            _peopleDb.Persons.Add(newPerson);
+            _peopleDb.SaveChanges();
+
+            for (int i = 0; i < person.Languages.Length; i++)
+            {
+                Language selectedLanguage = _languageRepo.Read(person.Languages[i]);
+                _personLanguageRepo.Create(newPerson, selectedLanguage);
+            }
+
+            return newPerson;
         }
 
         public PeopleViewModel All()
@@ -65,10 +85,21 @@ namespace People_MVC.Models.Service
 
         public PeopleViewModel FindBy(PeopleViewModel search)
         {
-            search.People = _peopleList.FindAll(
-                person => person.Name.Contains(search.Search,StringComparison.OrdinalIgnoreCase)
-                       || person.City.Name.Contains(search.Search, StringComparison.OrdinalIgnoreCase)
-                       || person.TeleNumber.Contains(search.Search)
+            //search.People = _peopleList.FindAll(
+            //    person => person.Name.Contains(search.Search,StringComparison.OrdinalIgnoreCase)
+            //           || person.City.Name.Contains(search.Search, StringComparison.OrdinalIgnoreCase)
+            //           || person.TeleNumber.Contains(search.Search)
+            //);
+            List<Language> searchedLanguage = (from lang in _languageRepo.Read()
+                                               where lang.Name.Contains(search.Search, System.StringComparison.OrdinalIgnoreCase)
+                                               select lang)
+                                                .ToList<Language>();
+
+            search.People = _peopleRepo.Read().FindAll(
+                person => person.Name.Contains(search.Search, System.StringComparison.OrdinalIgnoreCase)
+                || person.City.Name.Contains(search.Search, System.StringComparison.OrdinalIgnoreCase)
+                || person.PersonLanguages.Exists(pl => searchedLanguage.Exists(sl => sl.LanguageId == pl.LanguageId))
+                || person.TeleNumber.Contains(search.Search)
             );
 
             return search;
@@ -81,9 +112,9 @@ namespace People_MVC.Models.Service
 
         public Person Edit(int id, Person person)
         {
-            Person personToUpdate = _peopleRepo.Read(id);
+            Person personUpdate = _peopleRepo.Read(id);
 
-            if (personToUpdate != null)
+            if (personUpdate != null)
 
             {
                 return _peopleRepo.Update(person);
