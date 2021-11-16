@@ -1,8 +1,10 @@
 ﻿function Clear() {
     document.getElementById("name").value = "";
     document.getElementById("addCity").selectedIndex = 0;
-    console.log(document.getElementById("selectCity").value);
+    console.log(document.getElementById("addCity").value);
     document.getElementById("phone").value = "";
+    document.getElementById("addLanguage").selectedIndex = 0;
+    console.log(document.getElementById("addLanguage").value);
 }
 
 function showDiv(p) {

@@ -32,28 +32,6 @@ namespace People_MVC.Controllers
             _personLanguageRepo = personLanguageRepo;
           }
 
-        //[HttpGet]
-        //public IActionResult Index()
-        //{
-        //    ViewBag.Cities = new SelectList(_cityService.All().Cities, "CityId", "Name");
-        //    ViewBag.Languages = new SelectList(_languageService.All().Languages, "LanguageId", "Name");
-        //    List<dynamic> oneList = new List<dynamic>();
-
-        //    foreach (var item in _context.Persons)
-        //    {
-        //        dynamic dyObj = new ExpandoObject();
-        //        dyObj.PId = item.PersonId;
-        //        dyObj.PName = item.Name;
-        //        dyObj.Phone = item.TeleNumber;
-        //        dyObj.CityName = _peopleService.GetCityName(item.PersonId);
-        //        dyObj.CountryName = _peopleService.GetCountryName(item.PersonId);
-        //        dyObj.PLanguages = _peopleService.GetPersonLanguage(item.PersonId);
-        //        oneList.Add(dyObj);
-        //    }
-        //    ViewBag.data = oneList;
-        //    return View();
-        //}
-
         public IActionResult Index(PeopleViewModel peopleViewModel)
         {
             ViewBag.Cities = new SelectList(_cityService.All().Cities, "CityId", "Name");
@@ -70,12 +48,31 @@ namespace People_MVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create(CreatePersonViewModel person)
+        public IActionResult Create(string name, string city, string phoneNumber, int[] languages)
         {
+            ViewBag.Cities = new SelectList(_cityService.All().Cities, "CityId", "Name");
+            ViewBag.Languages = new SelectList(_languageService.All().Languages, "LanguageId", "Name");
+
+            City addCity = _cityService.FindBy(Convert.ToInt32(city));
             if (ModelState.IsValid)
             {
-                _peopleService.Add(person);
+                Person personAdd = new Person
+                {
+                    Name = name,
+                    City = addCity,
+                    TeleNumber = phoneNumber
+                };
+                _context.Persons.Add(personAdd);
+
+                int personId = _context.Persons.ToList().Last().PersonId;
+
+                for (int i = 0; i < languages.Length; i++)
+                {
+                    Language languageAdd = _languageService.FindBy(languages[i]);
+                    _context.PersonLanguages.Add(new PersonLanguage { PersonId = personId, LanguageId = languageAdd.LanguageId });
+                }
             }
+            _context.SaveChanges();
             return View("Index", _peopleService.All());
         }
 

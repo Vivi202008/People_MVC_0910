@@ -49,14 +49,15 @@
                     <p>
                         <label>Name:</label>
                         <span asp-validation-for="Person.Name" class="text-danger"></span>
-                        <input asp-for="Person.Name" id="name" placeholder="Enter name" class="me-3" />
+                        <input asp-for="Person.Name" id="name" name="addName" placeholder="Enter name" class="me-3" />
                     
                         <label>Phone:</label>
                         <span asp-validation-for="Person.TeleNumber" class="text-danger"></span>
-                        <input asp-for="Person.TeleNumber" id="phone" placeholder="Enter phone number" class="me-3" /><br />
+                        <input asp-for="Person.TeleNumber" id="phone" name="addPhone" placeholder="Enter phone number" class="me-3" /><br />
                     </p>
                     <label>City:</label>
-                    <select asp-for="Person.City" asp-items="ViewBag.Cities" id="addCity">
+                    <select asp-for="Person.City" asp-items="ViewBag.Cities" id="addCity" name="addCity">
+                        <option value="" selected>Select a city</option>
                         @foreach (City item in Model.Cities)
                         {
                             <option value="@item.CityId">@item.Name</option>
@@ -65,7 +66,7 @@
                     <br />
 
                     <label>Language:</label>
-                    <select name="languages" asp-items="ViewBag.Languages">
+                    <select name="addLanguages" asp-items="ViewBag.Languages" id="addLanguage">
                         <option value="" selected>Select Languages</option>
                         @foreach (Language item in Model.Languages)
                         {
@@ -73,7 +74,7 @@
                         }
                     </select>
                     <br />
-                    <input type="submit" class="btn-primary" value="Create">
+                    <input type="submit" class="btn-primary" id="create-btn" value="Create">
                     <input type="button" class="btn-primary" value="Reset" id="reset" onclick="Clear()">
                 </form>
             </div>
