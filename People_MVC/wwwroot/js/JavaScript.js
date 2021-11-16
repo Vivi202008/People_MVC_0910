@@ -56,6 +56,7 @@ function sortByName(p) {
     document.getElementById("editCity").value = p.city;
     document.getElementById("editLanguages").value = p.languages;
 }
+
 tail.select("#addCity", {
 });
 tail.select("#selectLanguage", {
