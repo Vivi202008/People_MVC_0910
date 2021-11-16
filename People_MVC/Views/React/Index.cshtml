@@ -21,8 +21,8 @@
                 <div class="col-md-1">PersonId</div>
                 <div class="col-md-2">
                     Name
-                    <a asp-controller="React" asp-action="Sort" id="">&nbsp;&#11014;&nbsp;</a>
-                    <label>&nbsp;&#11015;&nbsp;</label>
+                    <a asp-controller="React" asp-action="SortByName" id="Up">&nbsp;&#11014;&nbsp;</a>
+                    <a asp-controller="React" asp-action="SortByName" id="Down">&nbsp;&#11015;&nbsp;</a>
                 </div>
                 <div class="col-md-2">TeleNumber</div>
                 <div class="col-md-2">City</div>
@@ -36,47 +36,44 @@
                     {
                         <partial name="_People.cshtml" model="person" />
                     }
-                  
-
                 </div>
-
             </div>
 
         <div class="col-3">
             <div id="create-div">
                 <h4>Create a new person's record!</h4>
-                <form asp-controller="React" asp-action="Create" method="post" id="create-form" class="p-0">
-                    <p>
-                        <label>Name:</label>
-                        <span asp-validation-for="Person.Name" class="text-danger"></span>
-                        <input asp-for="Person.Name" id="name" name="addName" placeholder="Enter name" class="me-3" />
-                    
-                        <label>Phone:</label>
-                        <span asp-validation-for="Person.TeleNumber" class="text-danger"></span>
-                        <input asp-for="Person.TeleNumber" id="phone" name="addPhone" placeholder="Enter phone number" class="me-3" /><br />
-                    </p>
-                    <label>City:</label>
-                    <select asp-for="Person.City" asp-items="ViewBag.Cities" id="addCity" name="addCity">
-                        <option value="" selected>Select a city</option>
-                        @foreach (City item in Model.Cities)
-                        {
-                            <option value="@item.CityId">@item.Name</option>
-                        }
-                    </select>
-                    <br />
+                    <form asp-controller="React" asp-action="Create" method="post" class="create-form" >
+                        <p>
+                            <label>Name:</label>
+                            <span asp-validation-for="Person.Name" class="text-danger"></span>
+                            <input asp-for="Person.Name" id="name" name="addName" placeholder="Enter name" class="me-3" />
 
-                    <label>Language:</label>
-                    <select name="addLanguages" asp-items="ViewBag.Languages" id="addLanguage">
-                        <option value="" selected>Select Languages</option>
-                        @foreach (Language item in Model.Languages)
-                        {
-                            <option value="@item.LanguageId">@item.Name</option>
-                        }
-                    </select>
-                    <br />
-                    <input type="submit" class="btn-primary" id="create-btn" value="Create">
-                    <input type="button" class="btn-primary" value="Reset" id="reset" onclick="Clear()">
-                </form>
+                            <label>Phone:</label>
+                            <span asp-validation-for="Person.TeleNumber" class="text-danger"></span>
+                            <input asp-for="Person.TeleNumber" id="phone" name="addPhone" placeholder="Enter phone number" class="me-3" /><br />
+                        </p>
+                        <label>City:</label>
+                        <select asp-for="Person.City" asp-items="ViewBag.Cities" id="addCity" name="addCity">
+                            <option value="" selected>Select a city</option>
+                            @foreach (City item in Model.Cities)
+                            {
+                                <option value="@item.CityId">@item.Name</option>
+                            }
+                        </select>
+                        <br />
+
+                        <label>Language:</label>
+                        <select name="addLanguages" asp-items="ViewBag.Languages" id="addLanguage">
+                            <option value="" selected>Select Languages</option>
+                            @foreach (Language item in Model.Languages)
+                            {
+                                <option value="@item.LanguageId">@item.Name</option>
+                            }
+                        </select>
+                        <br />
+                        <input type="submit" class="btn-primary" id="create" value="Create">
+                        <input type="button" class="btn-secondary" value="Reset" id="reset" onclick="Clear()">
+                    </form>
             </div>
             <hr/>
             <div id="edit-div">

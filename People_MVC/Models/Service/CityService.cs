@@ -90,7 +90,7 @@ namespace People_MVC.Models.Service
 
             foreach (var c in _dbPeopleC.Countries)
             {
-                if (c.Name == name)
+                if (c.Name == countryName)
                 {
                     newCountryId = c.CountryId;
                 }
@@ -104,7 +104,7 @@ namespace People_MVC.Models.Service
                 newCountryId = _dbPeopleC.Countries.ToList().Last().CountryId;
             }
 
-            City updateCity = new City { Name = name, CountryId = newCountryId };
+            City updateCity = new City { CityId=id, Name = name, CountryId = newCountryId };
 
             _dbPeopleC.Cities.Update(updateCity);
 

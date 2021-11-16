@@ -47,29 +47,33 @@ namespace People_MVC.Controllers
             }
         }
 
-        [HttpGet]
-        public IActionResult Create(string name, string city, string phoneNumber, int[] languages)
+        [HttpPost]
+        public IActionResult Create(string addName, string addCity, string addPhone, int[] addLanguages)
         {
             ViewBag.Cities = new SelectList(_cityService.All().Cities, "CityId", "Name");
             ViewBag.Languages = new SelectList(_languageService.All().Languages, "LanguageId", "Name");
 
-            City addCity = _cityService.FindBy(Convert.ToInt32(city));
+            City newCity = _cityService.FindBy(Convert.ToInt32(addCity));
             if (ModelState.IsValid)
             {
                 Person personAdd = new Person
                 {
-                    Name = name,
-                    City = addCity,
-                    TeleNumber = phoneNumber
+                    Name = addName,
+                    City = newCity,
+                    TeleNumber = addPhone
                 };
                 _context.Persons.Add(personAdd);
+                _context.SaveChanges();
+                int newPersonId = _context.Persons.ToList().Last().PersonId;
 
-                int personId = _context.Persons.ToList().Last().PersonId;
-
-                for (int i = 0; i < languages.Length; i++)
+                for (int i = 0; i < addLanguages.Length; i++)
                 {
-                    Language languageAdd = _languageService.FindBy(languages[i]);
-                    _context.PersonLanguages.Add(new PersonLanguage { PersonId = personId, LanguageId = languageAdd.LanguageId });
+                    PersonLanguage addPersonLanguage = new PersonLanguage
+                    {
+                        PersonId = newPersonId,
+                        LanguageId = addLanguages[i]
+                    };
+                    _context.PersonLanguages.Add(addPersonLanguage);
                 }
             }
             _context.SaveChanges();
@@ -107,6 +111,8 @@ namespace People_MVC.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
+            ViewBag.Cities = new SelectList(_cityService.All().Cities, "CityId", "Name");
+            ViewBag.Languages = new SelectList(_languageService.All().Languages, "LanguageId", "Name");
             _peopleService.Remove(id);
 
             return View("Index", _peopleService.All());
