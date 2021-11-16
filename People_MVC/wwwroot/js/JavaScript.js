@@ -39,9 +39,18 @@ function editLocation(p) {
     document.getElementById("editName1").value = p.name1;
 }
 
-//Edit or create a person
+//Edit a person
 function forPerson(p) {
     document.getElementById("editID").value = p.id;
+    document.getElementById("editName").value = p.name;
+    document.getElementById("editPhoneNumber").value = p.phoneNumber;
+    document.getElementById("editCity").value = p.city;
+    document.getElementById("editLanguages").value = p.languages;
+}
+
+//Sort by name
+function sortByName(p) {
+    document.getElementById("sortUp").value = p.id;
     document.getElementById("editName").value = p.name;
     document.getElementById("editPhoneNumber").value = p.phoneNumber;
     document.getElementById("editCity").value = p.city;
