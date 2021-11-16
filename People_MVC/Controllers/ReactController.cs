@@ -82,6 +82,9 @@ namespace People_MVC.Controllers
         [HttpPost]
         public IActionResult Edit(int id, string name, string city, string phoneNumber, int[] languages)
         {
+            ViewBag.Cities = new SelectList(_cityService.All().Cities, "CityId", "Name");
+            ViewBag.Languages = new SelectList(_languageService.All().Languages, "LanguageId", "Name");
+
             City selectedCity = _cityService.FindBy(Convert.ToInt32(city));
 
             Person personEdit = _peopleService.FindBy(id);
@@ -100,7 +103,7 @@ namespace People_MVC.Controllers
             {
                 _peopleService.Edit(id, personEdit);
             }
-
+            _context.SaveChanges();
             return View("Index", _peopleService.All());
         }
 

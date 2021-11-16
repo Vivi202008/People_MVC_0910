@@ -25,9 +25,9 @@
                     <label>&nbsp;&#11015;&nbsp;</label>
                 </div>
                 <div class="col-md-2">TeleNumber</div>
-                <div class="col-md-1">City</div>
+                <div class="col-md-2">City</div>
                 <div class="col-md-1">Country</div>
-                <div class="col-md-3">PersonLanguages</div>
+                <div class="col-md-2">PersonLanguages</div>
                 <div class="col-md-2">Action</div>
                 
             </div>
@@ -92,10 +92,10 @@
                         <input asp-for="EditPerson.TeleNumber" id="editPhoneNumber" name="phoneNumber" class="me-3" placeholder="Enter phonenumber" /><br />
                     </p>
                     <label>City:</label>
-                    <select asp-for="EditPerson.City" asp-items="ViewBag.Cities" id="selectCity" name="city" placeholder="Select"></select>
+                    <select asp-for="EditPerson.City" asp-items="ViewBag.Cities" id="editCity" name="city" placeholder="Select"></select>
                     <br />                    
-                    <label>Language:</label>
-                    <select  name="languages" asp-items="ViewBag.Languages"> </select>
+                    <label>Language:(only first language)</label>
+                    <select  name="languages" id="editLanguages" asp-items="ViewBag.Languages"> </select>
                     <br />
                     <input type="submit" class="btn-primary" id="edit-btn" value="Save" />
                 </form>
