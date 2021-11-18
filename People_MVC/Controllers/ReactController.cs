@@ -12,6 +12,7 @@ using System.Linq;
 
 namespace People_MVC.Controllers
 {
+    
     public class ReactController : Controller
     {
         private readonly IPeopleService _peopleService;

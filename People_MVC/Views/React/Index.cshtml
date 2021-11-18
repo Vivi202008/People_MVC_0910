@@ -1,7 +1,10 @@
 ﻿@model People_MVC.Models.ViewModel.PeopleViewModel;
 @{
     ViewData["Title"] = "People Index";
+    
 }
+
+
 
 <h2>Welcome to People's SPA!</h2>
 
@@ -16,66 +19,70 @@
     <div class="row">
         <div class="col-9" id="show-div">
             <h4>The table of the person's records! </h4>
-            
+
             <div class="row border border-2 py-2">
                 <div class="col-md-1">PersonId</div>
                 <div class="col-md-2">
-                    Name
-                    <a asp-controller="React" asp-action="SortByName" name="sortUp" id="Up">&nbsp;&#11014;&nbsp;</a>
-                    <a asp-controller="React" asp-action="SortByName" name="sortDown" id="Down">&nbsp;&#11015;&nbsp;</a>
+                    Name<br />
+                    <SortButton class="btn-primary" clickButton={this.onClickSortButtonModifyName}
+                                status={this.state.modifyNameOrder}>
+                        Sort
+                    </SortButton>
+                    @*<a asp-controller="React" asp-action="SortByName" name="sortUp" id="Up">&nbsp;&#11014;&nbsp;</a>
+                    <a asp-controller="React" asp-action="SortByName" name="sortDown" id="Down">&nbsp;&#11015;&nbsp;</a>*@
                 </div>
                 <div class="col-md-2">TeleNumber</div>
                 <div class="col-md-2">City</div>
                 <div class="col-md-1">Country</div>
                 <div class="col-md-2">PersonLanguages</div>
                 <div class="col-md-2">Action</div>
-                
+
             </div>
-                <div>
-                    @foreach (Person person in Model.People)
-                    {
-                        <partial name="_People.cshtml" model="person" />
-                    }
-                </div>
+            <div>
+                @foreach (Person person in Model.People)
+                {
+                    <partial name="_People.cshtml" model="person" />
+                }
             </div>
+        </div>
 
         <div class="col-3">
             <div id="create-div">
                 <h4>Create a new person's record!</h4>
-                    <form asp-controller="React" asp-action="Create" method="post" class="create-form" >
-                        <p>
-                            <label>Name:</label>
-                            <span asp-validation-for="Person.Name" class="text-danger"></span>
-                            <input asp-for="Person.Name" id="name" name="addName" placeholder="Enter name" class="me-3" />
+                <form asp-controller="React" asp-action="Create" method="post" class="create-form">
+                    <p>
+                        <label>Name:</label>
+                        <span asp-validation-for="Person.Name" class="text-danger"></span>
+                        <input asp-for="Person.Name" id="name" name="addName" placeholder="Enter name" class="me-3" />
 
-                            <label>Phone:</label>
-                            <span asp-validation-for="Person.TeleNumber" class="text-danger"></span>
-                            <input asp-for="Person.TeleNumber" id="phone" name="addPhone" placeholder="Enter phone number" class="me-3" /><br />
-                        </p>
-                        <label>City:</label>
-                        <select asp-for="Person.City" asp-items="ViewBag.Cities" id="addCity" name="addCity">
-                            <option value="" selected>Select a city</option>
-                            @foreach (City item in Model.Cities)
-                            {
-                                <option value="@item.CityId">@item.Name</option>
-                            }
-                        </select>
-                        <br />
+                        <label>Phone:</label>
+                        <span asp-validation-for="Person.TeleNumber" class="text-danger"></span>
+                        <input asp-for="Person.TeleNumber" id="phone" name="addPhone" placeholder="Enter phone number" class="me-3" /><br />
+                    </p>
+                    <label>City:</label>
+                    <select asp-for="Person.City" asp-items="ViewBag.Cities" id="addCity" name="addCity">
+                        <option value="" selected>Select a city</option>
+                        @foreach (City item in Model.Cities)
+                        {
+                            <option value="@item.CityId">@item.Name</option>
+                        }
+                    </select>
+                    <br />
 
-                        <label>Language:</label>
-                        <select name="addLanguages" asp-items="ViewBag.Languages" id="addLanguage">
-                            <option value="" selected>Select Languages</option>
-                            @foreach (Language item in Model.Languages)
-                            {
-                                <option value="@item.LanguageId">@item.Name</option>
-                            }
-                        </select>
-                        <br />
-                        <input type="submit" class="btn-primary" id="create" value="Create">
-                        <input type="button" class="btn-secondary" value="Reset" id="reset" onclick="Clear()">
-                    </form>
+                    <label>Language:</label>
+                    <select name="addLanguages" asp-items="ViewBag.Languages" id="addLanguage">
+                        <option value="" selected>Select Languages</option>
+                        @foreach (Language item in Model.Languages)
+                        {
+                            <option value="@item.LanguageId">@item.Name</option>
+                        }
+                    </select>
+                    <br />
+                    <input type="submit" class="btn-primary" id="create" value="Create">
+                    <input type="button" class="btn-secondary" value="Reset" id="reset" onclick="Clear()">
+                </form>
             </div>
-            <hr/>
+            <hr />
             <div id="edit-div">
                 <h4>Edit the person's record! </h4>
                 <form asp-controller="React" asp-action="Edit" method="post" id="edit-form" class="p-0">
@@ -84,16 +91,16 @@
                         <input id="editID" name="id" type="hidden" />
                         <span asp-validation-for="EditPerson.Name" class="text-danger"></span>
                         <input asp-for="EditPerson.Name" id="editName" name="name" class="me-3" placeholder="Enter name" /><br />
-                    
+
                         <label>Phone:</label>
-                        <span asp-validation-for="EditPerson.TeleNumber"class="text-danger"></span>
+                        <span asp-validation-for="EditPerson.TeleNumber" class="text-danger"></span>
                         <input asp-for="EditPerson.TeleNumber" id="editPhoneNumber" name="phoneNumber" class="me-3" placeholder="Enter phonenumber" /><br />
                     </p>
                     <label>City:</label>
                     <select asp-for="EditPerson.City" asp-items="ViewBag.Cities" id="editCity" name="city" placeholder="Select"></select>
-                    <br />                    
+                    <br />
                     <label>Language:(only first language)</label>
-                    <select  name="languages" id="editLanguages" asp-items="ViewBag.Languages"> </select>
+                    <select name="languages" id="editLanguages" asp-items="ViewBag.Languages"> </select>
                     <br />
                     <input type="submit" class="btn-primary" id="edit-btn" value="Save" />
                 </form>

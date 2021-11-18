@@ -1,4 +1,6 @@
-﻿function Clear() {
+﻿import SortButton from components/SortButton
+
+function Clear() {
     document.getElementById("name").value = "";
     document.getElementById("addCity").selectedIndex = 0;
     console.log(document.getElementById("addCity").value);

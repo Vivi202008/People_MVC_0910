@@ -12,7 +12,8 @@ namespace People_MVC.Controllers
     [AllowAnonymous]
     [ApiController]
     [Route("[controller]")]
-    public class ReactFrontend : Controller
+
+   public class ReactFrontend : Controller
     {
         private readonly IPeopleService _peopleService;
         private readonly ICityRepo _cityRepo;
