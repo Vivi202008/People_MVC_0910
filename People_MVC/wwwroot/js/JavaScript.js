@@ -49,13 +49,7 @@ function forPerson(p) {
 }
 
 //Sort by name
-function sortByName(p) {
-    document.getElementById("sortUp").value = p.id;
-    document.getElementById("editName").value = p.name;
-    document.getElementById("editPhoneNumber").value = p.phoneNumber;
-    document.getElementById("editCity").value = p.city;
-    document.getElementById("editLanguages").value = p.languages;
-}
+
 
 tail.select("#addCity", {
 });
