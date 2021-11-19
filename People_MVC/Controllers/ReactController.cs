@@ -120,6 +120,7 @@ namespace People_MVC.Controllers
 
         public IActionResult SortByName()
         {
+            List<Person> peopleList = _peopleService.All().People;
             return View("Index", _peopleService.All());
         }
 

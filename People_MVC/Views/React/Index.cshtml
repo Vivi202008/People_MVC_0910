@@ -20,9 +20,11 @@
             <div class="row border border-2 py-2">
                 <div class="col-md-1">PersonId</div>
                 <div class="col-md-2">
-                    Name
-                    <a asp-controller="React" asp-action="SortByName" id="Up">&nbsp;&#11014;&nbsp;</a>
-                    <a asp-controller="React" asp-action="SortByName" id="Down">&nbsp;&#11015;&nbsp;</a>
+                    <input asp-controller="React" asp-action="SortByName" method="post" type="button" value="Name" onclick="upSort(peopleList)"/>
+                    <img id="sortName" width="25%" src="~/images/up.PNG" />
+
+                    @*<a asp-controller="React" asp-action="SortByName" id="Up">&nbsp;&#11014;&nbsp;</a>
+        <a asp-controller="React" asp-action="SortByName" id="Down">&nbsp;&#11015;&nbsp;</a>*@
                 </div>
                 <div class="col-md-2">TeleNumber</div>
                 <div class="col-md-2">City</div>
@@ -103,3 +105,5 @@
 </div>
 
 <script src="~/js/JavaScript.js"></script>
+<script src="~/js/action.js"></script>
+<script src="~/js/index.js"></script>
