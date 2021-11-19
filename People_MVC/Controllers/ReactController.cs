@@ -21,7 +21,6 @@ namespace People_MVC.Controllers
         readonly PeopleDbContext _context;
         private readonly IPersonLanguageRepo _personLanguageRepo;
 
-
         public ReactController(IPeopleService peopleService, IPeopleRepo peopleRepo, PeopleDbContext context, ICityService cityService, ICountryService countryService, ILanguageService languageService, IPersonLanguageRepo personLanguageRepo)
         {
             _peopleService = peopleService;
