@@ -118,5 +118,10 @@ namespace People_MVC.Controllers
             return View("Index", _peopleService.All());
         }
 
+        public IActionResult SortByName()
+        {
+            return View("Index", _peopleService.All());
+        }
+
     }
 }
